@@ -5,7 +5,7 @@ const del = require('del')
 gulp.task('styles', () => {
     return gulp.src('style/sass/**/*.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('src/assets/css/'))
+        .pipe(gulp.dest('style/css/'))
 })
 
 gulp.task('clean', () => {

@@ -1,16 +1,23 @@
 import Head from 'next/head'
-import Form from '../components/form'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/database'
+import Register from '../components/register'
+import firebase from '../components/firebase'
+import Router from 'next/router'
+
 export default function Home() {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      Router.push('/application')
+    } else {
+      console.log('not logged in')
+    }
+  })
   return (
     <div className='container'>
       <Head>
         <title>Rama Pitching Challenge | Register</title>
-        <link rel="icon" href="/favicon.ico" />
+
       </Head>
-      <Form/>
+      <Register/>
 
     </div>
   )
