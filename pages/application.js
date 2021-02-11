@@ -6,7 +6,7 @@ import Application from '../components/application'
 export default function ApplicationPage() {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-
+      
     } else {
       Router.push('/')
     }

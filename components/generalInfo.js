@@ -1,6 +1,6 @@
 import { ErrorMessage } from 'formik'
 const GeneralInfo = (props) => {
-    const { handleBlur, handleChange, values } = props
+    const { handleBlur, handleChange, values, setFieldValue } = props
     return (
         <div className='row'>
             <div className='col-md-3'>
@@ -41,6 +41,8 @@ const GeneralInfo = (props) => {
                                             name="register_type"
                                             value='management'
                                             id='management-radio'
+                                            checked={values['register_type']=='management'}
+                                            onChange={() => setFieldValue("register_type", "management")}
                                         />
                                         <label class="form-check-label" htmlFor="management-radio">Healthcare Management</label>
                                     </div>
@@ -51,8 +53,10 @@ const GeneralInfo = (props) => {
                                             name="register_type"
                                             value='innovation'
                                             id='innovation-radio'
+                                            checked={values['register_type']=='innovation'}
+                                            onChange={() => setFieldValue("register_type", "innovation")}
                                         />
-                                        <label class="form-check-label" htmlFor='innovation-radio'>Innovation</label>
+                                        <label class="form-check-label" htmlFor='innovation-radio'>Health Innovation</label>
                                     </div>
                                 </div>
                             </div>
@@ -68,6 +72,8 @@ const GeneralInfo = (props) => {
                                         name="register_type"
                                         value='poster'
                                         id='poster-radio'
+                                        checked={values['register_type']=='poster'}
+                                        onChange={() => setFieldValue("register_type", "poster")}
                                     />
                                     <label class="form-check-label" htmlFor="poster-radio">
                                         นำเสนอโปสเตอร์

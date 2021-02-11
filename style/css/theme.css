@@ -33,6 +33,10 @@
 .btn-link {
   box-shadow: none; }
 
+.btn-icon {
+  box-shadow: none;
+  padding: 0; }
+
 .mainBlue-light {
   color: #072ac8; }
 
@@ -150,6 +154,8 @@ button:disabled {
   height: 150px;
   padding: 20px;
   border-radius: 75px;
+  background-position: center;
+  background-size: cover;
   background-color: black;
   color: white; }
 
