@@ -64,8 +64,8 @@ const Register = () => (
               onBlur={handleBlur}
               value={values.email}
             />
-            <span className='text-muted'>Email ประจำทีม สำหรับใช้รับข้อมูลการแข่งขัน</span>
-            <div className='text-danger error'>
+            <small className='text-muted'><b>Email ประจำทีม สำหรับใช้รับข้อมูลการแข่งขัน</b></small>
+            <div className='text-danger text-bold'>
               <ErrorMessage name="email" component="span" />
             </div>
           </div>
@@ -80,7 +80,7 @@ const Register = () => (
               onBlur={handleBlur}
               value={values.password}
             />
-            <div className='text-danger error'>
+            <div className='text-danger text-bold'>
               <ErrorMessage name="password" component="span" />
             </div>
           </div>
@@ -97,14 +97,17 @@ const Register = () => (
               value={values.confirmed_password}
             />
             
-            <div className='text-danger error'>
+            <div className='text-danger text-bold'>
               <ErrorMessage name="confirmed_password" component="span" />
             </div>
           </div>
           <div className='text-center'>
             <button className='btn btn-primary w-100' type="submit" disabled={isSubmitting}>
               ลงทะเบียน
-          </button>
+            </button>
+            <button className='mt-3 btn btn-link w-100' type="submit">
+              กรอกข้อมูลต่อ เข้าสู่ระบบ
+            </button>
           </div>
         </form>
       )}

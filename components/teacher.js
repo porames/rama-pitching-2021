@@ -13,13 +13,13 @@ const Member = (props) => {
                         placeholder='ชื่อ-สกุล'
                         className="form-control"
                         type="text"
-                        name="team_name"
+                        name="teacher_name"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.team_name}
+                        value={values.teacher_name}
                     />
                     <div className='text-danger error'>
-                        <ErrorMessage name="team_name" component="span" />
+                        <ErrorMessage name="teacher_name" component="span" />
                     </div>
                 </div>
                 <div className='mb-4'>
@@ -29,13 +29,13 @@ const Member = (props) => {
                         placeholder='โรงเรียน'
                         className="form-control"
                         type="text"
-                        name="team_name"
+                        name="teacher_school_name"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.team_name}
+                        value={values.teacher_school_name}
                     />
                     <div className='text-danger error'>
-                        <ErrorMessage name="team_name" component="span" />
+                        <ErrorMessage name="teacher_school_name" component="span" />
                     </div>
                 </div>
                 <div className='mb-4'>
@@ -44,13 +44,13 @@ const Member = (props) => {
                         placeholder='เบอร์โทรศัพท์'
                         className="form-control"
                         type="text"
-                        name="team_name"
+                        name="teacher_tel"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.team_name}
+                        value={values.teacher_tel}
                     />
                     <div className='text-danger error'>
-                        <ErrorMessage name="team_name" component="span" />
+                        <ErrorMessage name="teacher_tel" component="span" />
                     </div>
                 </div>
             </div>

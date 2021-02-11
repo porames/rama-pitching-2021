@@ -165,6 +165,8 @@ button:disabled {
   margin: 0 auto 10px auto;
   border-radius: 50%;
   background-color: white;
+  position: relative;
+  z-index: 2;
 }
 .progressbar li:after {
   width: 100%;
@@ -174,7 +176,7 @@ button:disabled {
   background-color: rgb(209, 213, 219);
   top: 18px;
   left: -50%;
-  z-index: -1;
+  z-index: 1;
 }
 .progressbar li:first-child:after {
   content: none;
@@ -194,4 +196,14 @@ button:disabled {
   font-weight: 700;
 }
 
+
+.avatar-placeholder{
+  cursor: pointer;
+  width:150px;
+  height: 150px;
+  padding: 20px;
+  border-radius: 75px;
+  background-color: black;
+  color: white;
+}
 @import "node_modules/bootstrap/scss/bootstrap";

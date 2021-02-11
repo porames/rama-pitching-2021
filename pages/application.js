@@ -16,15 +16,15 @@ export default function ApplicationPage() {
       <nav className="navbar navbar-light bg-white py-3" style={{ borderBottom: 'solid 1px #e5e7eb' }}>
         <div className='container'>
           <h4 className='mb-0'>
-            ระบบรับสมัคร
+          ระบบรับสมัคร
           </h4>
         </div>
       </nav>
-      <div className='container'>
-        <Head>
-          <title>Rama Pitching Challenge | Application</title>
-        </Head>
 
+      <Head>
+        <title>Rama Pitching Challenge | Application</title>
+      </Head>
+      <div className='bg-dark py-5'>
         <Application />
       </div>
     </div>

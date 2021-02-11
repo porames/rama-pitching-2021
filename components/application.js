@@ -1,27 +1,33 @@
 import React, { useState, useEffect } from 'react'
-import { Formik, ErrorMessage } from 'formik'
+import { Formik, ErrorMessage, setFieldValue } from 'formik'
 import firebase from './firebase'
 import Member from './member'
 import Teacher from './teacher'
 import GeneralInfo from './generalInfo'
 import StepBar from './stepBar'
 import Modal from 'react-bootstrap/Modal'
-
+import Content from './content'
 const Members = (props) => {
-    const { handleChange, values, handleBlur } = props
+    const { handleChange, values, handleBlur, setFieldValue } = props
     const [selectedMember, setSelectedMember] = useState(undefined)
     return (
         <div className='row'>
-            <Modal size='lg' show={selectedMember !== undefined} onHide={() => setSelectedMember(undefined)}>
-
+            <div className='col-12'>
+                <h3 className='text-center mb-4'>ข้อมูลสมาชิกทีม</h3>
+            </div>
+            <Modal scrollable={true} size='lg' show={selectedMember !== undefined} onHide={() => setSelectedMember(undefined)}>
                 <Modal.Header>
                     <Modal.Title>สมาชิก {selectedMember}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Member number={1} handleChange={handleChange} handleBlur={handleBlur} values={values} />
+                    <Member setFieldValue={setFieldValue} number={selectedMember} handleChange={handleChange} handleBlur={handleBlur} values={values} />
                 </Modal.Body>
+                <Modal.Footer>
+                    <button className='btn-primary btn'>บันทึกข้อมูล</button>
+                </Modal.Footer>
             </Modal>
-            <div className='col-4'>
+
+            <div className='col-md-4 pb-3'>
                 <button onClick={() => setSelectedMember(1)} className='btn py-4 w-100'>
                     <div className='flex-y-middle'>
                         <div className='avatar mb-3' />
@@ -34,7 +40,7 @@ const Members = (props) => {
                     </div>
                 </button>
             </div>
-            <div className='col-4'>
+            <div className='col-md-4 pb-3'>
                 <button className='btn py-4 w-100'>
                     <div className='flex-y-middle'>
                         <div className='avatar mb-3' />
@@ -47,7 +53,7 @@ const Members = (props) => {
                     </div>
                 </button>
             </div>
-            <div className='col-4'>
+            <div className='col-md-4 pb-3'>
                 <button className='btn py-4 w-100'>
                     <div className='flex-y-middle'>
                         <div className='avatar mb-3' />
@@ -67,17 +73,35 @@ const Members = (props) => {
 
 const Register = () => {
     const [currentStep, setStep] = useState(1)
-    function nextPage(){
-        if(currentStep<=4){
-            setStep(currentStep+1)
+    function nextPage() {
+        if (currentStep <= 4) {
+            setStep(currentStep + 1)
         }
     }
+    const member_data_name = ['name', 'school', 'image', 'class', 'tel', 'doc']
+    var members_data = {}
+    for (var i = 0; i <= 3; i++) {
+        member_data_name.forEach((name) => {
+            members_data[`member_${i + 1}_${name}`]=''
+        })
+    }
+    console.log(members_data)
+
     return (
-        <div className='container py-5'>
+        <div className='rounded shadow container bg-white px-4 py-5'>
             <StepBar setStep={(i) => setStep(i)} step={currentStep} />
             <Formik
-                initialValues={{ email: '', password: '', confirmed_password: '' }}
+                initialValues={{
+                    team_name: '',
+                    register_type: '',
+                    teacher_name: '',
+                    teacher_tel: '',
+                    teacher_school: '',
+                    ...members_data
+
+                }}
                 validate={values => {
+                    console.log(values)
                     const errors = {}
                     return errors
                 }}
@@ -90,6 +114,7 @@ const Register = () => {
                     handleBlur,
                     handleSubmit,
                     isSubmitting,
+                    setFieldValue
                     /* and other goodies */
                 }) => (
                     <form className='mt-4' onSubmit={handleSubmit}>
@@ -100,7 +125,10 @@ const Register = () => {
                             </>
                         }
                         {currentStep === 2 &&
-                            <Members handleChange={handleChange} handleBlur={handleBlur} values={values} />
+                            <Members setFieldValue={setFieldValue} handleChange={handleChange} handleBlur={handleBlur} values={values} />
+                        }
+                        {currentStep === 3 &&
+                            <Content handleChange={handleChange} handleBlur={handleBlur} values={values} />
                         }
                         <div className='row mt-4'>
                             <div className='col-6'></div>
