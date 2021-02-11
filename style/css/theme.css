@@ -85,6 +85,63 @@ button:disabled {
 .material-icons {
   vertical-align: middle !important; }
 
+.progressbar {
+  counter-reset: step;
+  display: flex;
+  padding: 0; }
+
+.progressbar li {
+  list-style-type: none;
+  width: 25%;
+  float: left;
+  font-size: 16px;
+  position: relative;
+  text-align: center;
+  color: #d1d5db;
+  cursor: pointer; }
+
+.progressbar li:before {
+  width: 42px;
+  height: 42px;
+  font-family: "Mitr", monospace;
+  font-size: 26px;
+  content: counter(step);
+  counter-increment: step;
+  line-height: 35px;
+  border: 3px solid #d1d5db;
+  display: block;
+  text-align: center;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  background-color: white; }
+
+.progressbar li:after {
+  width: 100%;
+  height: 3px;
+  content: '';
+  position: absolute;
+  background-color: #d1d5db;
+  top: 18px;
+  left: -50%;
+  z-index: -1; }
+
+.progressbar li:first-child:after {
+  content: none; }
+
+.progressbar li.active {
+  color: #1e96fc; }
+
+.progressbar li.active:before {
+  background-color: #1e96fc;
+  color: white;
+  border-color: #1e96fc; }
+
+.progressbar li.active + li:after {
+  background-color: #1e96fc; }
+
+.text-bold {
+  font-weight: 700; }
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors

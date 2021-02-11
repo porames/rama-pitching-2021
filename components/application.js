@@ -4,10 +4,12 @@ import firebase from './firebase'
 import Member from './member'
 import Teacher from './teacher'
 import GeneralInfo from './generalInfo'
+import StepBar from './stepBar'
 import Modal from 'react-bootstrap/Modal'
+
 const Members = (props) => {
     const { handleChange, values, handleBlur } = props
-    const [selectedMember, setSelectedMember] = useState(1)
+    const [selectedMember, setSelectedMember] = useState(undefined)
     return (
         <div className='row'>
             <Modal size='lg' show={selectedMember !== undefined} onHide={() => setSelectedMember(undefined)}>
@@ -65,8 +67,14 @@ const Members = (props) => {
 
 const Register = () => {
     const [currentStep, setStep] = useState(1)
+    function nextPage(){
+        if(currentStep<=4){
+            setStep(currentStep+1)
+        }
+    }
     return (
         <div className='container py-5'>
+            <StepBar setStep={(i) => setStep(i)} step={currentStep} />
             <Formik
                 initialValues={{ email: '', password: '', confirmed_password: '' }}
                 validate={values => {
@@ -95,8 +103,12 @@ const Register = () => {
                             <Members handleChange={handleChange} handleBlur={handleBlur} values={values} />
                         }
                         <div className='row mt-4'>
-                            <div className='col-md-3 col-6 text-center'>
-                                <button onClick={()=>setStep(2)} className='btn btn-primary w-100'>
+                            <div className='col-6'></div>
+                            <div className='col-6 text-right'>
+                                <button className='text-primary btn btn-light' style={{ minWidth: 150 }}>
+                                    บันทึกข้อมูล
+                                </button>
+                                <button onClick={() => nextPage()} className='btn btn-primary' style={{ minWidth: 150 }}>
                                     ต่อไป
                                 </button>
                             </div>
