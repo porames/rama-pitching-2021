@@ -1,15 +1,10 @@
 import { ErrorMessage } from 'formik'
 import { useState, useEffect } from 'react'
-import firebase from './firebase'
-import FileUpload from './fileUpload'
 import ImageUploader from './imageUploader'
 import FileInput from './fileInput'
 
 const Member = (props) => {
     const { handleBlur, handleChange, values, setFieldValue, number, handleSubmit } = props
-    useEffect(() => {
-
-    })
     return (
         <div className='row'>
 
@@ -104,6 +99,7 @@ const Member = (props) => {
                 <FileInput
                     label='ใบ ปพ.7'
                     handleSubmit={handleSubmit}
+                    allowedExt={['pdf','jpg','jpeg','png']}
                     setFieldValue={setFieldValue} values={values} name={`member_${number}_doc`}
                 />
             </div>

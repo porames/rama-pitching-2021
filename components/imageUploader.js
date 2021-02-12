@@ -31,6 +31,7 @@ const ImageUploader = (props) => {
                 setImagePreview={setImagePreview}
                 handleSubmit={handleSubmit}
                 className='d-none'
+                allowedExt={['jpg', 'png', 'jpeg']}
             />
         </div>
     )

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import FileUpload from './fileUpload'
 import firebase from './firebase'
 const FileInput = (props) => {
-    const { setFieldValue, values, name, label, handleSubmit } = props
+    const { setFieldValue, values, name, label, handleSubmit, allowedExt } = props
     const [filePreviewLink, setFilePreviewLink] = useState(undefined)
     function docPreviewText(data) {
         if (typeof (data) === 'object') {
@@ -24,7 +24,7 @@ const FileInput = (props) => {
             <label className="form-label">{label}</label>
             <div className="custom-file">
                 <label htmlFor={name} className="custom-file-label">{docPreviewText(values[name])}</label>
-                <FileUpload handleSubmit={handleSubmit} name={name} setFieldValue={setFieldValue} />
+                <FileUpload allowedExt={allowedExt} handleSubmit={handleSubmit} name={name} setFieldValue={setFieldValue} />
             </div>
             <a href={filePreviewLink} target="_blank">
                 <small><b>{filePreviewLink ? 'ดูไฟล์ที่เคยอัพโหลดไว้' : ''}</b></small>
