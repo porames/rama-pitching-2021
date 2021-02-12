@@ -3,40 +3,23 @@ import { Formik, ErrorMessage } from 'formik';
 import firebase from './firebase'
 
 
-const Register = (props) => (
+const LogIn = (props) => (
   <div className='container page-wrapper'>
     <div className='rounded shadow-sm form-box-container bg-white' style={{ maxWidth: 700 }}>
-      <h3 className='text-center'>ลงทะเบียนร่วมการแข่งขัน</h3>
+      <h3 className='text-center'>เข้าสู่ระบบสมัคร</h3>
       <Formik
-        initialValues={{ email: '', password: '', confirmed_password: '' }}
+        initialValues={{ email: '', password: '' }}
         validate={values => {
           const errors = {}
-          if (!values.email) {
-            errors.email = 'กรุณาระบุ Email'
-          }
-          else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = 'Email รูปแบบไม่ถูกต้อง'
-          }
-          if (!values.password) {
-            errors.password = 'กรุณาตั้งรหัสผ่านความยาวไม่น้อยกว่า 8 ตัวอักษร'
-          }
-          else {
-            if (values.password.length >= 8) {
-              if (values.password !== values.confirmed_password && values.confirmed_password) {
-                errors.confirmed_password = 'รหัสผ่านไม่ตรงกัน'
-              }
-            }
-            else {
-              errors.password = 'กรุณาตั้งรหัสผ่านความยาวไม่น้อยกว่า 8 ตัวอักษร'
-            }
-          }
+         
           return errors
         }}
         onSubmit={async (values, { setSubmitting }) => {
           try {
-            const user = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
+            const user = await firebase.auth().signInWithEmailAndPassword(values.email, values.password)
+            if(user){
+                
+            }
           }
           catch (err) {
             console.log(err)
@@ -84,30 +67,13 @@ const Register = (props) => (
               <div className='text-danger text-bold'>
                 <ErrorMessage name="password" component="span" />
               </div>
-            </div>
-            <div className='mb-4'>
-
-              <label class="form-label">ยืนยันรหัสผ่าน</label>
-              <input
-                placeholder='ยืนยันรหัสผ่าน'
-                className="form-control"
-                type="password"
-                name="confirmed_password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.confirmed_password}
-              />
-
-              <div className='text-danger text-bold'>
-                <ErrorMessage name="confirmed_password" component="span" />
-              </div>
-            </div>
+            </div>        
             <div className='text-center'>
               <button className='btn btn-primary w-100' type="submit" disabled={isSubmitting}>
-                ลงทะเบียน
+                เข้าสู่ระบบ
             </button>
-              <button onClick={()=>props.setMode('login')} className='mt-3 btn btn-link w-100'>
-                เข้าสู่ระบบเพื่อกรอกข้อมูลต่อ
+              <button onClick={()=>props.setMode('register')} className='mt-3 btn btn-link w-100'>
+                ยังไม่เคยลงทะเบียน?
             </button>
             </div>
           </form>
@@ -117,4 +83,4 @@ const Register = (props) => (
   </div>
 );
 
-export default Register
+export default LogIn

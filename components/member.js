@@ -1,60 +1,20 @@
 import { ErrorMessage } from 'formik'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import firebase from './firebase'
+import FileUpload from './fileUpload'
+import ImageUploader from './imageUploader'
+import FileInput from './fileInput'
+
 const Member = (props) => {
-    const { handleBlur, handleChange, values, setFieldValue, number } = props
-    const [imagePreview, setImagePreview] = useState(undefined)
-    function docPreviewText(data) {
-        if (typeof (data) === 'object') {
-            return data.name
-        }
-        else {
-            return 'กรุณาเลือกไฟล์'
-        }
-    }
+    const { handleBlur, handleChange, values, setFieldValue, number, handleSubmit } = props
+    useEffect(() => {
 
-    function previewImage(file) {
-        var reader = new FileReader();
-        reader.readAsDataURL(file)
-        reader.onload = function (e) {
-            setImagePreview(e.target.result)
-        }
-    }
-    function uploadImage(file) {
-        previewImage(file)
-        const user = firebase.auth().currentUser
-        var storageRef = firebase.storage().ref()
-        const ext = file.name.split('.').pop()
-        storageRef.child(`teams/${user.uid}/member_${number}_image.${ext}`)
-        storageRef.put(file)
-
-
-    }
+    })
     return (
         <div className='row'>
+
             <div className='col-12'>
-                <div className='mb-4 text-center'>
-                    <label htmlFor={`member_${number}_image`} className="form-label">
-                        <div className='text-center flex-y-middle avatar-placeholder'
-                            style={{ backgroundImage: imagePreview !== undefined ? `url(${imagePreview})` : '' }}
-                        >
-                            <span className='material-icons'>
-                                add_a_photo
-                            </span>
-                            <div className='mt-3'>ภาพถ่ายหน้าตรง</div>
-                        </div>
-                    </label>
-                    <input
-                        id={`member_${number}_image`}
-                        name={`member_${number}_image`}
-                        type="file"
-                        className="d-none custom-file-input"
-                        onChange={(event) => {
-                            setFieldValue(`member_${number}_image`, event.currentTarget.files[0])
-                            uploadImage(event.currentTarget.files[0])
-                        }}
-                    />
-                </div>
+                <ImageUploader handleSubmit={handleSubmit} values={values} setFieldValue={setFieldValue} name={`member_${number}_image`} />
             </div>
             <div className='col-12'>
                 <div className='mb-4'>
@@ -141,19 +101,11 @@ const Member = (props) => {
                         <ErrorMessage name="team_name" component="span" />
                     </div>
                 </div>
-                <div className='mb-4'>
-                    <label className="form-label">ใบ ปพ.7</label>
-                    <div className="custom-file">
-                        <label htmlFor={`member_${number}_doc`} className="custom-file-label">{docPreviewText(values[`member_${number}_doc`])}</label>
-                        <input type="file" className="custom-file-input"
-                            id={`member_${number}_doc`}
-                            name={`member_${number}_doc`}
-                            onChange={(event) => {
-                                setFieldValue(`member_${number}_doc`, event.currentTarget.files[0]);
-                            }}
-                        />
-                    </div>
-                </div>
+                <FileInput
+                    label='ใบ ปพ.7'
+                    handleSubmit={handleSubmit}
+                    setFieldValue={setFieldValue} values={values} name={`member_${number}_doc`}
+                />
             </div>
         </div>
     )

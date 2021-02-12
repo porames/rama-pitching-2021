@@ -1,10 +1,12 @@
 import Head from 'next/head'
 import Register from '../components/register'
+import LogIn from '../components/login'
 import firebase from '../components/firebase'
+import { useEffect, useState } from 'react'
 import Router from 'next/router'
-
 export default function Home() {
-  firebase.auth().onAuthStateChanged(function(user) {
+  const [mode, setMode] = useState('register')
+  firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       Router.push('/application')
     } else {
@@ -12,12 +14,13 @@ export default function Home() {
     }
   })
   return (
-    <div className='container'>
+    <div className='bg-dark'>
       <Head>
         <title>Rama Pitching Challenge | Register</title>
 
       </Head>
-      <Register/>
+      {mode === 'register' && <Register setMode={setMode} />}
+      {mode === 'login' && <LogIn setMode={setMode} />}
 
     </div>
   )
