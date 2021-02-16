@@ -1,4 +1,5 @@
 import { ErrorMessage } from 'formik'
+
 const GeneralInfo = (props) => {
     const { handleBlur, handleChange, values, setFieldValue } = props
     return (
@@ -7,6 +8,15 @@ const GeneralInfo = (props) => {
                 <h3>ข้อมูลทั่วไป</h3>
             </div>
             <div className='col-md-9'>
+                <div className='mb-4'>
+                    <label class="form-label">Email</label>
+                    <input
+                        placeholder='Email'
+                        disabled={true}
+                        className="form-control"
+                        value={props.email}
+                    />
+                </div>
                 <div className='mb-4'>
                     <label class="form-label">ชื่อทีม</label>
                     <input

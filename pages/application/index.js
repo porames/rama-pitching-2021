@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import firebase from '../components/firebase'
+import firebase from '../../components/firebase'
 import Router from 'next/router'
-import Application from '../components/application'
+import Application from '../../components/application'
 
 export default function ApplicationPage() {
   firebase.auth().onAuthStateChanged(function (user) {

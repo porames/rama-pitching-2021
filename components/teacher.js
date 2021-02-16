@@ -29,10 +29,10 @@ const Member = (props) => {
                         placeholder='โรงเรียน'
                         className="form-control"
                         type="text"
-                        name="teacher_school_name"
+                        name="teacher_school"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.teacher_school_name}
+                        value={values.teacher_school}
                     />
                     <div className='text-danger error'>
                         <ErrorMessage name="teacher_school_name" component="span" />

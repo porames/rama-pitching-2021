@@ -10,6 +10,7 @@ import Modal from 'react-bootstrap/Modal'
 import Content from './content'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Router from 'next/router'
 
 const Success = () => (<span className="material-icons">check_circle_outline</span>)
 const Warning = () => (<span className="material-icons">error_outline</span>)
@@ -113,15 +114,21 @@ const Register = () => {
     }
 
     useEffect(() => {
-        firebase.auth().onAuthStateChanged(user => {
-
+        firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 setUser(user)
                 db.doc('register').collection('teams').doc(user.uid)
                     .onSnapshot((doc) => {
                         setIsLoading(false)
                         if (doc.exists) {
-                            setInitVals(doc.data())
+                            const data = doc.data()
+                            if(data['submission_time']){
+                                return Router.push('application/submitted')
+                            }
+                            else{
+                                setInitVals(data)
+                            }
+                            
                         }
                         else {
                             setInitVals({
@@ -130,7 +137,9 @@ const Register = () => {
                                 teacher_name: '',
                                 teacher_tel: '',
                                 teacher_school: '',
-                                video_url,
+                                video_url: '',
+                                team_doc: '',
+                                team_poster: '',
                                 ...members_data
                             })
                         }
@@ -186,7 +195,7 @@ const Register = () => {
                     <form className='mt-4' onSubmit={handleSubmit}>
                         {currentStep === 1 &&
                             <>
-                                <GeneralInfo setFieldValue={setFieldValue} handleChange={handleChange} handleBlur={handleBlur} values={values} />
+                                <GeneralInfo email={user ? user['email'] : ''} setFieldValue={setFieldValue} handleChange={handleChange} handleBlur={handleBlur} values={values} />
                                 <Teacher handleChange={handleChange} handleBlur={handleBlur} values={values} />
                             </>
                         }
@@ -197,7 +206,7 @@ const Register = () => {
                             <Content handleSubmit={handleSubmit} setFieldValue={setFieldValue} handleChange={handleChange} handleBlur={handleBlur} values={values} isSubmitting={isSubmitting} />
                         }
                         {currentStep === 4 &&
-                            <Submission values={values} />
+                            <Submission handleSubmit={handleSubmit} handleChange={handleChange} handleBlur={handleBlur} values={values} />
                         }
                         {currentStep !== 4 &&
                             <div className='row mt-4'>
