@@ -19,5 +19,5 @@ gulp.task('watch', () => {
         gulp.series(['clean', 'styles'])(done);
     })
 })
-
+gulp.task('build', gulp.series(['clean', 'styles']))
 gulp.task('default', gulp.series(['clean', 'styles', 'watch']))
