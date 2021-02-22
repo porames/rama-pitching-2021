@@ -56,7 +56,7 @@ const Submission = (props) => {
     const { values, handleSubmit } = props
     const [submissionCheck, setSubmissionCheck] = useState(false)
     const [showModal, setShowModal] = useState(false)
-    const member_data_name = ['name', 'school', 'image', 'class', 'tel', 'doc']
+    const member_data_name = ['name', 'school', 'image', 'class', 'tel', 'doc', 'email']
     var members_data = []
     for (var i = 0; i < 3; i++) {
         member_data_name.forEach((name) => {

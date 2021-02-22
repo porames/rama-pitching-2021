@@ -55,7 +55,7 @@ const PreviewData = (props) => {
         await renderMemberData()
     })
     return (
-        <div className='alert alert-dark mt-3' style={{ maxHeight: 240, overflowY: 'auto' }}>
+        <div className='alert alert-dark mt-3'>
             <div>
                 <div><b>Email</b> {firebase.auth().currentUser.email}</div>
                 <div><b>ชื่อทีม</b> {values['team_name']}</div>

@@ -36,7 +36,7 @@ const MemberButton = (props) => {
                     <h5>สมาชิก {number}</h5>
                     <div className='text-left'>
                         <div>
-                            {(values[`member_${number}_name`] && values[`member_${number}_school`] && values[`member_${number}_class`] && values[`member_${number}_tel`]) && values[`member_${number}_address`] ?
+                            {(values[`member_${number}_name`] && values[`member_${number}_school`] && values[`member_${number}_class`] && values[`member_${number}_tel`]) && values[`member_${number}_address`] && values[`member_${number}_email`] ?
                                 <span className='text-success'><Success /> ข้อมูล</span> :
                                 <span className='text-warning'><Warning /> ข้อมูล</span>
                             }
@@ -105,7 +105,7 @@ const Register = () => {
         }
     }
     const db = firebase.firestore().collection('rama-pitching')
-    const member_data_name = ['name', 'school', 'image', 'class', 'tel', 'doc']
+    const member_data_name = ['name', 'school', 'image', 'class', 'tel', 'doc', 'email']
     var members_data = {}
     for (var i = 0; i <= 3; i++) {
         member_data_name.forEach((name) => {

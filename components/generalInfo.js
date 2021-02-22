@@ -9,7 +9,7 @@ const GeneralInfo = (props) => {
             </div>
             <div className='col-md-9'>
                 <div className='mb-4'>
-                    <label class="form-label">Email</label>
+                    <label className="form-label">Email</label>
                     <input
                         placeholder='Email'
                         disabled={true}
@@ -18,7 +18,7 @@ const GeneralInfo = (props) => {
                     />
                 </div>
                 <div className='mb-4'>
-                    <label class="form-label">ชื่อทีม</label>
+                    <label className="form-label">ชื่อทีม</label>
                     <input
                         placeholder='ชื่อทีม'
                         className="form-control"
@@ -40,11 +40,10 @@ const GeneralInfo = (props) => {
                 <div className='mb-4'>
                     <div className='row'>
                         <div className='col-6'>
-                            <div className={`${values['register_type'] == 'innovation' || values['register_type'] == 'management' ? 'elevation-1' : ''} h-100 card rounded p-3 flex-y-middle`}>
-                                <img src='/pitching.svg' height='100px' />
-                                <h5 className='mt-3'>Pitching</h5>
+                            <div className={`${values['register_type'] == 'management' ? 'elevation-1' : ''} h-100 card rounded p-3 flex-y-middle`}>
+                                <img src='/hospital.svg' height='100px' />
                                 <div>
-                                    <div class="form-check">
+                                    <div className="mt-3 form-check">
                                         <input
                                             className="form-check-input"
                                             type="radio"
@@ -54,40 +53,26 @@ const GeneralInfo = (props) => {
                                             checked={values['register_type'] == 'management'}
                                             onChange={() => setFieldValue("register_type", "management")}
                                         />
-                                        <label class="form-check-label" htmlFor="management-radio">Healthcare Management</label>
+                                        <label className="form-check-label" htmlFor="management-radio">Healthcare Management</label>
                                     </div>
-                                    <div class="form-check">
-                                        <input
-                                            className="form-check-input"
-                                            type="radio"
-                                            name="register_type"
-                                            value='innovation'
-                                            id='innovation-radio'
-                                            checked={values['register_type'] == 'innovation'}
-                                            onChange={() => setFieldValue("register_type", "innovation")}
-                                        />
-                                        <label class="form-check-label" htmlFor='innovation-radio'>Health Innovation</label>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                         <div className='col-6'>
-                            <div className={`${values['register_type'] == 'poster' ? 'elevation-1' : ''} h-100 card rounded p-3 flex-y-middle`}>
-                                <img src='/presentation.svg' height='100px' />
-                                <h5 className='mt-3'>นำเสนอโปสเตอร์</h5>
-                                <div class="form-check">
+                            <div className={`${values['register_type'] == 'innovation' ? 'elevation-1' : ''} h-100 card rounded p-3 flex-y-middle`}>
+                                <img src='/ai.svg' height='100px' />
+                                <div className="mt-3 form-check">
                                     <input
                                         className="form-check-input"
                                         type="radio"
                                         name="register_type"
-                                        value='poster'
-                                        id='poster-radio'
-                                        checked={values['register_type'] == 'poster'}
-                                        onChange={() => setFieldValue("register_type", "poster")}
+                                        value='innovation'
+                                        id='innovation-radio'
+                                        checked={values['register_type'] == 'innovation'}
+                                        onChange={() => setFieldValue("register_type", "innovation")}
                                     />
-                                    <label class="form-check-label" htmlFor="poster-radio">
-                                        นำเสนอโปสเตอร์
-                                    </label>
+                                    <label className="form-check-label" htmlFor='innovation-radio'>Health Innovation</label>
                                 </div>
                             </div>
                         </div>

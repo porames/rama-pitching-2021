@@ -1,120 +1,123 @@
-import React, {useState, useEffect} from 'react';
-import { Formik, ErrorMessage } from 'formik';
+import React, { useState, useEffect } from 'react'
+import { Formik, ErrorMessage } from 'formik'
 import firebase from './firebase'
+import { withTranslation, i18n } from '../i18'
 
-
-const Register = (props) => (
-  <div className='container page-wrapper'>
-    <div className='rounded shadow-sm form-box-container bg-white' style={{ maxWidth: 700 }}>
-      <h3 className='text-center'>ลงทะเบียนร่วมการแข่งขัน</h3>
-      <Formik
-        initialValues={{ email: '', password: '', confirmed_password: '' }}
-        validate={values => {
-          const errors = {}
-          if (!values.email) {
-            errors.email = 'กรุณาระบุ Email'
-          }
-          else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = 'Email รูปแบบไม่ถูกต้อง'
-          }
-          if (!values.password) {
-            errors.password = 'กรุณาตั้งรหัสผ่านความยาวไม่น้อยกว่า 8 ตัวอักษร'
-          }
-          else {
-            if (values.password.length >= 8) {
-              if (values.password !== values.confirmed_password && values.confirmed_password) {
-                errors.confirmed_password = 'รหัสผ่านไม่ตรงกัน'
-              }
+const Register = (props) => {
+  const { t } = props
+  return (
+    <div className='container page-wrapper'>
+      <div className='rounded shadow-sm form-box-container bg-white' style={{ maxWidth: 700 }}>
+        <h3 className='text-center'>{t('title')}</h3>
+        <Formik
+          initialValues={{ email: '', password: '', confirmed_password: '' }}
+          validate={values => {
+            const errors = {}
+            if (!values.email) {
+              errors.email = 'กรุณาระบุ Email'
             }
-            else {
+            else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+              errors.email = 'Email รูปแบบไม่ถูกต้อง'
+            }
+            if (!values.password) {
               errors.password = 'กรุณาตั้งรหัสผ่านความยาวไม่น้อยกว่า 8 ตัวอักษร'
             }
-          }
-          return errors
-        }}
-        onSubmit={async (values, { setSubmitting }) => {
-          try {
-            const user = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
-          }
-          catch (err) {
-            console.log(err)
-          }
-        }}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-          /* and other goodies */
-        }) => (
-          <form className='mt-4' onSubmit={handleSubmit}>
-            <div className='mb-4'>
-              <label class="form-label">Email</label>
-              <input
-                placeholder='Email'
-                className="form-control"
-                type="email"
-                name="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-              <small className='text-muted'><b>Email ประจำทีม สำหรับใช้รับข้อมูลการแข่งขัน</b></small>
-              <div className='text-danger text-bold'>
-                <ErrorMessage name="email" component="span" />
+            else {
+              if (values.password.length >= 8) {
+                if (values.password !== values.confirmed_password && values.confirmed_password) {
+                  errors.confirmed_password = 'รหัสผ่านไม่ตรงกัน'
+                }
+              }
+              else {
+                errors.password = 'กรุณาตั้งรหัสผ่านความยาวไม่น้อยกว่า 8 ตัวอักษร'
+              }
+            }
+            return errors
+          }}
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              const user = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
+            }
+            catch (err) {
+              console.log(err)
+            }
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+            /* and other goodies */
+          }) => (
+            <form className='mt-4' onSubmit={handleSubmit}>
+              <div className='mb-4'>
+                <label class="form-label">Email</label>
+                <input
+                  placeholder='Email'
+                  className="form-control"
+                  type="email"
+                  name="email"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                />
+                <small className='text-muted'><b>Email ประจำทีม สำหรับใช้รับข้อมูลการแข่งขัน</b></small>
+                <div className='text-danger text-bold'>
+                  <ErrorMessage name="email" component="span" />
+                </div>
               </div>
-            </div>
-            <div className='mb-4'>
-              <label class="form-label">รหัสผ่าน</label>
-              <input
-                placeholder='รหัสผ่าน'
-                className="form-control"
-                type="password"
-                name="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-              />
-              <div className='text-danger text-bold'>
-                <ErrorMessage name="password" component="span" />
+              <div className='mb-4'>
+                <label class="form-label">รหัสผ่าน</label>
+                <input
+                  placeholder='รหัสผ่าน'
+                  className="form-control"
+                  type="password"
+                  name="password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                />
+                <div className='text-danger text-bold'>
+                  <ErrorMessage name="password" component="span" />
+                </div>
               </div>
-            </div>
-            <div className='mb-4'>
+              <div className='mb-4'>
 
-              <label class="form-label">ยืนยันรหัสผ่าน</label>
-              <input
-                placeholder='ยืนยันรหัสผ่าน'
-                className="form-control"
-                type="password"
-                name="confirmed_password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.confirmed_password}
-              />
+                <label class="form-label">ยืนยันรหัสผ่าน</label>
+                <input
+                  placeholder='ยืนยันรหัสผ่าน'
+                  className="form-control"
+                  type="password"
+                  name="confirmed_password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.confirmed_password}
+                />
 
-              <div className='text-danger text-bold'>
-                <ErrorMessage name="confirmed_password" component="span" />
+                <div className='text-danger text-bold'>
+                  <ErrorMessage name="confirmed_password" component="span" />
+                </div>
               </div>
-            </div>
-            <div className='text-center'>
-              <button className='btn btn-primary w-100' type="submit" disabled={isSubmitting}>
-                ลงทะเบียน
+              <div className='text-center'>
+                <button className='btn btn-primary w-100' type="submit" disabled={isSubmitting}>
+                  ลงทะเบียน
             </button>
-              <button onClick={()=>props.setMode('login')} className='mt-3 btn btn-link w-100'>
-                เข้าสู่ระบบเพื่อกรอกข้อมูลต่อ
+                <button onClick={() => props.setMode('login')} className='mt-3 btn btn-link w-100'>
+                  เข้าสู่ระบบเพื่อกรอกข้อมูลต่อ
             </button>
-            </div>
-          </form>
-        )}
-      </Formik>
+              </div>
+            </form>
+          )}
+        </Formik>
+      </div>
     </div>
-  </div>
-);
+  )
+}
 
-export default Register
+export default withTranslation('common')(Register)
