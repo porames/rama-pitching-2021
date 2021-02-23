@@ -4,24 +4,23 @@ import Modal from 'react-bootstrap/Modal'
 import Router from 'next/router'
 import firebase from './firebase'
 import PreviewData from './previewData'
-import {withTranslation} from '../i18'
+import { withTranslation } from '../i18'
 
 const ConfirmModal = (props) => (
     <Modal show={props.show} onHide={props.handleClose}>
         <Modal.Header>
-            <Modal.Title>ยืนยันการส่งใบสมัคร</Modal.Title>
+            <Modal.Title>{props.t('confirm-submission')}</Modal.Title>
             <button onClick={props.handleClose} className='btn btn-icon'><span className='material-icons'>close</span></button>
         </Modal.Header>
         <Modal.Body>
             <span>
-                การกดปุ่มยืนยันการส่งใบสมัครหมายความว่าผู้สมัครได้ตรวจสอบข้อมูลว่าถูกต้องและครบถ้วนแล้ว 
-                หลังจากส่งใบสมัคร ผู้สมัครจะไม่สามารถแก้ไขข้อมูลได้อีก
+                {props.t('confirm-modal-text')}
             </span>
         </Modal.Body>
         <Modal.Footer>
-        <button className='btn btn-white text-primary' onClick={props.handleClose}>กลับไปแก้ไข</button>
-            <button className='btn btn-primary' onClick={()=>props.submitApp()}>ยืนยันการส่งใบสมัคร</button>
-            
+            <button className='btn btn-white text-primary' onClick={props.handleClose}>{props.t('btn-unconfirm')}</button>
+            <button className='btn btn-primary' onClick={() => props.submitApp()}>{props.t('confirm-submission')}</button>
+
         </Modal.Footer>
     </Modal>
 )
@@ -51,7 +50,7 @@ const WarningCard = (props) => (
 )
 
 const Submission = (props) => {
-    const { values, handleSubmit,t } = props
+    const { values, handleSubmit, t } = props
     const [submissionCheck, setSubmissionCheck] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const member_data_name = ['name', 'school', 'image', 'class', 'tel', 'doc', 'email']
@@ -136,30 +135,13 @@ const Submission = (props) => {
         return checkMembersElm
     }
     function checkContent() {
-        if (!values['register_type']) {
-            return false
-        }
-        if (values['register_type'] === 'innovation' || values['register_type'] === 'management') {
-            if (values['team_doc'] && values['video_url']) {
-                return true
-            }
-
-            else {
-                return false
-            }
-        }
-        else if (values['register_type'] === 'poster') {
-            if (values['team_poster']) {
-                return true
-            }
-
-            else {
-                return false
-            }
+        if (values['team_doc'] && values['video_url']) {
+            return true
         }
         else {
             return false
         }
+
     }
 
     useEffect(() => {
@@ -167,7 +149,7 @@ const Submission = (props) => {
     }, [])
     return (
         <div className='mb-3'>
-            <ConfirmModal t={t} submitApp={submitApp} handleClose={()=>setShowModal(false)} show={showModal} />
+            <ConfirmModal t={t} submitApp={submitApp} handleClose={() => setShowModal(false)} show={showModal} />
             <h3 className='text-center mb-4'>{t('confirm-submission')}</h3>
             <div className='row'>
                 <div className='col-md-4 pb-3'>
@@ -208,7 +190,7 @@ const Submission = (props) => {
                     />
                     <label className='custom-control-label' for='confirm_register'>{t('checked-and-verified')}</label>
                 </div>
-                <button onClick={()=>setShowModal(true)} disabled={!submissionCheck} className='mt-3 btn btn-primary' type='button'>
+                <button onClick={() => setShowModal(true)} disabled={!submissionCheck} className='mt-3 btn btn-primary' type='button'>
                     {t('btn-submit-app')}
                 </button>
             </div>

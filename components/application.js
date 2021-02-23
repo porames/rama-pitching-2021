@@ -12,6 +12,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Router from 'next/router'
 import { withTranslation } from '../i18'
+import LanguageSwitcher from './languageSwitcher'
 
 const Success = () => (<span className="material-icons">check_circle_outline</span>)
 const Warning = () => (<span className="material-icons">error_outline</span>)
@@ -108,7 +109,7 @@ const Register = ({ t }) => {
     const db = firebase.firestore().collection('rama-pitching')
     const member_data_name = ['name', 'school', 'image', 'class', 'tel', 'doc', 'email']
     var members_data = {}
-    for (var i = 0; i <= 3; i++) {
+    for (var i = 0; i < 3; i++) {
         member_data_name.forEach((name) => {
             members_data[`member_${i + 1}_${name}`] = ''
         })
@@ -226,6 +227,9 @@ const Register = ({ t }) => {
                         </form>
                     )}
                 </Formik>
+            </div>
+            <div className='text-center'>
+            <LanguageSwitcher />
             </div>
         </div>
     )

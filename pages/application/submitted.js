@@ -52,20 +52,25 @@ export default function SubmittedPage() {
                 db.collection('rama-pitching').doc('register').collection('teams')
                     .doc(user.uid).get()
                     .then((doc) => {
-                        const data = doc.data()
-                        if (!data['submission_time']) {
-                            return Router.push('application')
-                        }
-                        else {
-                            setData(doc.data())
-                            var uf = []
-                            for (const i in valueKeys) {
-                                const key = valueKeys[i]
-                                if (!data[key] || data[key] == '') {
-                                    uf.push(key)
-                                }
+                        if (doc.exists) {
+                            const data = doc.data()
+                            if (!data['submission_time']) {
+                                return Router.push('/application')
                             }
-                            setUnfinished(uf)
+                            else {
+                                setData(doc.data())
+                                var uf = []
+                                for (const i in valueKeys) {
+                                    const key = valueKeys[i]
+                                    if (!data[key] || data[key] == '') {
+                                        uf.push(key)
+                                    }
+                                }
+                                setUnfinished(uf)
+                            }
+                        }
+                        else{
+                            Router.push('/application')
                         }
                     })
             } else {

@@ -20,7 +20,7 @@ const Content = (props) => {
             <div className='col-md-3'>
                 <h3>{t('pitching-idea')}</h3>
             </div>
-            {(values['register_type'] === 'management' || values['register_type'] === 'innovation') &&
+            
                 <div className='col-md-9'>
                     <FileInput
                         label={t('label.pitching-paper')}
@@ -55,20 +55,6 @@ const Content = (props) => {
                         <p className='text-danger'><b>{t('warning.youtube-format')}</b></p>
                     }
                 </div>
-            }
-            {(values['register_type'] === 'poster') &&
-                <div className='col-md-9'>
-                    <FileInput
-                        label={t('label.poster')}
-                        handleSubmit={handleSubmit}
-                        allowedExt={['pdf']}
-                        setFieldValue={setFieldValue}
-                        values={values}
-                        maxSize={5}
-                        name={`team_poster`}
-                    />
-                </div>
-            }
         </div>
 
     )

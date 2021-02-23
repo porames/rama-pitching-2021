@@ -3,7 +3,7 @@ import firebase from '../../components/firebase'
 import Router from 'next/router'
 import Application from '../../components/application'
 import {withTranslation} from '../../i18'
-import LanguageSwitcher from '../../components/languageSwitcher'
+
 const ApplicationPage = ({t}) => {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -29,8 +29,7 @@ const ApplicationPage = ({t}) => {
         <title>Rama Pitching Challenge | Application</title>
       </Head>
       <div className='bg-dark page-wrapper'>
-        <Application />
-        <LanguageSwitcher />
+        <Application />        
       </div>
     </div>
   )

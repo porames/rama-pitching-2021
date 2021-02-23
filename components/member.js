@@ -64,6 +64,7 @@ const Member = (props) => {
                 <TextField values={values} label={t('label.tel')} name={`member_${number}_tel`} handleChange={handleChange} handleBlur={handleBlur} />                
                 <FileInput
                     label={t('label.student-doc')}
+                    helper={t('school-doc-helper')}
                     handleSubmit={handleSubmit}
                     allowedExt={['pdf', 'jpg', 'jpeg', 'png']}
                     setFieldValue={setFieldValue} values={values} name={`member_${number}_doc`}

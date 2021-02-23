@@ -10,11 +10,12 @@ const config = {
     messagingSenderId: "636453257191",
     appId: "1:636453257191:web:d5e3389875d0f12d7d0742"
 }
-try {
-    firebase.initializeApp(config)
-}
-
-catch (err) {
-    console.log(err)
+if (!firebase.apps.length) {
+    try {
+        firebase.initializeApp(config)
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
 export default firebase

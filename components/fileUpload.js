@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 import React, { useState } from 'react'
 const FileUpload = (props) => {
     const { t, setFieldValue, handleSubmit, allowedExt } = props
-    
+
     function previewImage(file) {
         var reader = new FileReader();
         reader.readAsDataURL(file)
@@ -12,7 +12,7 @@ const FileUpload = (props) => {
         }
     }
     function uploadFile(file) {
-        if(!file){
+        if (!file) {
             return
         }
         if (file.size > 1024 * 1024 * (props.maxSize ? props.maxSize : 2)) {
@@ -34,9 +34,12 @@ const FileUpload = (props) => {
         const user = firebase.auth().currentUser
         var storageRef = firebase.storage().ref().child(`teams/${user.uid}/${props.name}.${ext}`)
         const uploadTask = storageRef.put(file)
+
         uploadTask.on('state_changed', (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            props.setUploadProgress(progress)
+            if (!previewImage) {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                props.setUploadProgress(progress)
+            }
         }, (err) => {
             console.log(err)
             toast.error('เกิดข้อผิดพลาดขณะอัพโหลด กรุณาลองอีกครั้ง')
@@ -45,6 +48,7 @@ const FileUpload = (props) => {
             handleSubmit()
         })
     }
+
     return (
         <input
             id={props.name}

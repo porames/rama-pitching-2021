@@ -4,7 +4,7 @@ import FileUpload from './fileUpload'
 import firebase from './firebase'
 
 const FileInput = (props) => {
-    const { t, maxSize, setFieldValue, values, name, label, handleSubmit, allowedExt } = props
+    const { t, helper, maxSize, setFieldValue, values, name, label, handleSubmit, allowedExt } = props
     const [filePreviewLink, setFilePreviewLink] = useState(undefined)
     const [uploadProgress, setUploadProgress] = useState(undefined)
     function docPreviewText(data) {
@@ -15,18 +15,18 @@ const FileInput = (props) => {
             return t('please-select-file')
         }
     }
-    function displayProgress(progress){
-        if(progress){
-            if(progress <100){
-                return(`${t('uploading')} (${Math.round(uploadProgress*100)/100}%)`)
+    function displayProgress(progress) {
+        if (progress) {
+            if (progress < 100) {
+                return (`${t('uploading')} (${Math.round(uploadProgress * 100) / 100}%)`)
             }
-            else{
-                return(<b className='text-success'>{t('upload-success')}</b>)
+            else {
+                return (<b className='text-success'>{t('upload-success')}</b>)
             }
-            
+
         }
-        else{
-            return('')
+        else {
+            return ('')
         }
     }
     useEffect(async () => {
@@ -43,9 +43,16 @@ const FileInput = (props) => {
                 <label htmlFor={name} className="custom-file-label">{docPreviewText(values[name])}</label>
                 <FileUpload t={t} setUploadProgress={setUploadProgress} maxSize={maxSize} allowedExt={allowedExt} handleSubmit={handleSubmit} name={name} setFieldValue={setFieldValue} />
             </div>
-            <a href={filePreviewLink} target="_blank">
-                <small><b>{filePreviewLink ? t('view-upload') : ''}</b></small>
-            </a>
+            {helper &&
+                <div>
+                    <small><b className='text-muted'>{helper}</b></small>
+                </div>
+            }
+            <div>
+                <a href={filePreviewLink} target="_blank">
+                    <small><b>{filePreviewLink ? t('view-upload') : ''}</b></small>
+                </a>
+            </div>
         </div>
     )
 }

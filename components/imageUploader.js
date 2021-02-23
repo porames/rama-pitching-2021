@@ -1,8 +1,10 @@
+import { withTranslation } from 'next-i18next'
 import React, { useEffect, useState } from 'react'
 import FileUpload from './fileUpload'
 import firebase from './firebase'
+
 const ImageUploader = (props) => {
-    const { setFieldValue, values, handleSubmit } = props
+    const { setFieldValue, values, handleSubmit, t } = props
     const [imagePreview, setImagePreview] = useState(undefined)
     useEffect(async () => {
         const path = values[props.name]
@@ -21,7 +23,7 @@ const ImageUploader = (props) => {
                     <span className='material-icons'>
                         add_a_photo
                             </span>
-                    <div className='mt-3'>ภาพถ่ายหน้าตรง</div>
+                    <div className='mt-3'>{t('label.profile-image')}</div>
                 </div>
             </label>
             <FileUpload
@@ -37,4 +39,4 @@ const ImageUploader = (props) => {
     )
 }
 
-export default ImageUploader
+export default withTranslation('common')(ImageUploader)

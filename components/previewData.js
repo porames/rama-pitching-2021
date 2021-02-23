@@ -66,8 +66,16 @@ const PreviewData = (props) => {
                 <br />
                 <h5>{t('pitching-idea')}</h5>
                 <span>
-                    <div><b>{t('label.pitching-paper')}</b> <StorageLink t={t} path={values['team_doc']} /></div>
-                    <div><b>{t('label.presentation-vdo')}</b> <a href={values['video_url']} target='_blank'>{t('view-upload')} <span className='material-icons small'>launch</span></a></div>
+                    <div><b>{t('label.pitching-paper')} </b>
+                        {values['team_doc'] &&
+                            <StorageLink t={t} path={values['team_doc']} />
+                        }
+                    </div>
+                    <div><b>{t('label.presentation-vdo')} </b>
+                        {values['video_url'] &&
+                            <a href={values['video_url']} target='_blank'>{t('view-upload')} <span className='material-icons small'>launch</span></a>
+                        }
+                    </div>
                 </span>
             </div>
         </div>
