@@ -1,0 +1,11 @@
+{
+  "title": "Sign In",
+  "error": {
+    "password": "Email or Password is incorrect"
+  },
+  "label": {
+    "password": "Password",
+    "login": "Log In",
+    "go-signup": "Don't have an account? Sign Up."
+  }
+}

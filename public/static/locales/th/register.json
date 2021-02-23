@@ -1,0 +1,16 @@
+{
+  "title": "ลงทะเบียนการแข่งขัน",
+  "error": {
+    "email-null": "กรุณาระบุ Email",
+    "email-format": "รุปแบบ Email ไม่ถูกต้อง",
+    "password-length": "รหัสผ่านต้องยาวไม่น้อยกว่า 8 ตัวอักษร",
+    "password-match": "รหัสผ่านไม่ตรงกัน"
+  },
+  "email-helper": "Email ประจำทีม สำหรับรับข้อมูลการแข่งขัน",
+  "label": {
+    "password": "รหัสผ่าน",
+    "confirm-password": "ยืนยันรหัสผ่าน",
+    "register": "ลงทะเบียน",
+    "go-login": "มีบัญชีแล้ว ? เข้าสู่ระบบ"
+  }
+}

@@ -1,7 +1,54 @@
 {
-    "title": "ลงทะเบียนร่วมการแข่งขัน",
-    "label": {
-      "email-dsc": "Email ประจำทีม สำหรับใช้รับข้อมูลการแข่งขัน",
-      "password": "รหัสผ่าน"
-    }
-  }
+  "member": "สมาชิก",
+  "general-info": "ข้อมูลทั่วไป",
+  "photo": "รูปภาพ",
+  "school-doc": "ใบยืนยันความเป็นนักเรียน",
+  "team-member-info": "ข้อมูลสมาชิก",
+  "btn-save": "บันทึก",
+  "please-wait": "กรุณารอสักครู่ ...",
+  "toast-saved": "บันทึกข้อมูลสำเร็จ",
+  "btn-save-next": "บันทึกและไปขั้นต่อไป",
+  "pitching-idea": "ข้อเสนอ",
+  "label": {
+    "pitching-paper": "รายงานข้อเสนอ",
+    "presentation-vdo": "วีดีโอนำเสนอ",
+    "poster": "",
+    "team-name": "ชื่อทีม",
+    "register-type": "รูปแบบการแข่งขัน",
+    "name": "ชื่อ-สกุล",
+    "email-personal": "Email สมาชิก",
+    "school-name": "ชื่อโรงเรียน",
+    "class-year": "ระดับชั้นเรียน",
+    "m4": "มัธยมศึกษาปีที่ 4",
+    "m5": "มัธยมศึกษาปีที่ 5",
+    "m6": "มัธยมศึกษาปีที่ 6",
+    "address": "ที่อยู่สำหรับจัดส่งรางวัล",
+    "tel": "เบอร์โทรศัพท์",
+    "student-doc": "เอกสารยืนยันความเป็นนักเรียน",
+    "teacher-info": "ข้อมูลอาจารย์ที่ปรึกษา"
+  },
+  "vdo-helper": "อัพโหลดวีดีโอนำเสนอความยาว 2:45-3:15 นาที บนเว็บไซต์ YouTube แล้วแนบลิงค์มาทางนี้",
+  "warning": {
+    "youtube-format": "รูปแบบลิงค์วีดีโอไม่ถูกต้อง"
+  },
+  "please-select-file": "กรุณาเลือกไฟล์",
+  "uploading": "กำลังอัพโหลด ...",
+  "upload-success": "อัพโหลดสำเร็จ",
+  "view-upload": "ดูไฟล์ที่อัพโหลดไว้",
+  "management": "Healthcare Management.",
+  "innovation": "Health Innovation.",
+  "step": {
+    "team-info": "ข้อมูลทีม",
+    "member-info": "ข้อมูลสมาชิก",
+    "content-info": "ข้อเสนอ",
+    "submit-info": "ส่งใบสมัคร"
+  },
+  "info-completed": "ข้อมูลครบถ้วน",
+  "info-missing": "ข้อมูลไม่สมบูรณ์",
+  "confirm-submission": "ยืนยันการส่งใบสมัคร",
+  "checked-and-verified": "ผู้สมัครตรวจสอบข้อมูลว่าถูกต้องและครบถ้วนแล้ว",
+  "btn-submit-app": "ส่งใบสมัคร",
+  "teacher-info": "ข้อมูลอาจารย์ที่ปรึกษา",
+  "register-header": "ระบบลงทะเบียน",
+  "logout": "ออกจากระบบ"
+}

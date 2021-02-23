@@ -2,7 +2,7 @@ import firebase from './firebase'
 import { toast } from 'react-toastify'
 import React, { useState } from 'react'
 const FileUpload = (props) => {
-    const { setFieldValue, handleSubmit, allowedExt } = props
+    const { t, setFieldValue, handleSubmit, allowedExt } = props
     
     function previewImage(file) {
         var reader = new FileReader();

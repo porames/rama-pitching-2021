@@ -1,11 +1,12 @@
 import { ErrorMessage } from 'formik'
+import { withTranslation } from '../i18'
 
 const GeneralInfo = (props) => {
-    const { handleBlur, handleChange, values, setFieldValue } = props
+    const { t, handleBlur, handleChange, values, setFieldValue } = props
     return (
         <div className='row'>
             <div className='col-md-3'>
-                <h3>ข้อมูลทั่วไป</h3>
+                <h3>{t('general-info')}</h3>
             </div>
             <div className='col-md-9'>
                 <div className='mb-4'>
@@ -18,9 +19,9 @@ const GeneralInfo = (props) => {
                     />
                 </div>
                 <div className='mb-4'>
-                    <label className="form-label">ชื่อทีม</label>
+                    <label className="form-label">{t('label.team-name')}</label>
                     <input
-                        placeholder='ชื่อทีม'
+                        placeholder={t('label.team-name')}
                         className="form-control"
                         type="text"
                         name="team_name"
@@ -34,7 +35,7 @@ const GeneralInfo = (props) => {
                 </div>
             </div>
             <div className='col-md-3'>
-                <h3>รูปแบบการแข่งขัน</h3>
+                <h3>{t('label.register-type')}</h3>
             </div>
             <div className='col-md-9'>
                 <div className='mb-4'>
@@ -53,7 +54,7 @@ const GeneralInfo = (props) => {
                                             checked={values['register_type'] == 'management'}
                                             onChange={() => setFieldValue("register_type", "management")}
                                         />
-                                        <label className="form-check-label" htmlFor="management-radio">Healthcare Management</label>
+                                        <label className="form-check-label" htmlFor="management-radio">{t('management')}</label>
                                     </div>
 
                                 </div>
@@ -72,7 +73,7 @@ const GeneralInfo = (props) => {
                                         checked={values['register_type'] == 'innovation'}
                                         onChange={() => setFieldValue("register_type", "innovation")}
                                     />
-                                    <label className="form-check-label" htmlFor='innovation-radio'>Health Innovation</label>
+                                    <label className="form-check-label" htmlFor='innovation-radio'>{t('innovation')}</label>
                                 </div>
                             </div>
                         </div>
@@ -84,4 +85,4 @@ const GeneralInfo = (props) => {
         </div>
     )
 }
-export default GeneralInfo
+export default withTranslation('common')(GeneralInfo)

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import _ from 'lodash'
-
 import Modal from 'react-bootstrap/Modal'
 import Router from 'next/router'
-
 import firebase from './firebase'
 import PreviewData from './previewData'
+import {withTranslation} from '../i18'
 
 const ConfirmModal = (props) => (
     <Modal show={props.show} onHide={props.handleClose}>
@@ -17,7 +16,6 @@ const ConfirmModal = (props) => (
             <span>
                 การกดปุ่มยืนยันการส่งใบสมัครหมายความว่าผู้สมัครได้ตรวจสอบข้อมูลว่าถูกต้องและครบถ้วนแล้ว 
                 หลังจากส่งใบสมัคร ผู้สมัครจะไม่สามารถแก้ไขข้อมูลได้อีก
-
             </span>
         </Modal.Body>
         <Modal.Footer>
@@ -35,7 +33,7 @@ const SuccessCard = (props) => (
     <div className='card h-100 elevation-1 bg-success text-white text-center py-4'>
         <h4>{props.name}</h4>
         {!props.member &&
-            <p className='mb-0'><b><Success /> ข้อมูลครบถ้วน</b></p>
+            <p className='mb-0'><b><Success /> {props.t('info-completed')}</b></p>
         }
         {props.member && props.children
         }
@@ -46,14 +44,14 @@ const WarningCard = (props) => (
     <div className='card h-100 elevation-1 bg-danger text-white text-center py-4'>
         <h4>{props.name}</h4>
         {!props.member &&
-            <p className='mb-0'><b><Warning /> ข้อมูลยังไม่ครบ</b></p>
+            <p className='mb-0'><b><Warning /> {props.t('info-missing')}</b></p>
         }
         {props.member && props.children}
     </div>
 )
 
 const Submission = (props) => {
-    const { values, handleSubmit } = props
+    const { values, handleSubmit,t } = props
     const [submissionCheck, setSubmissionCheck] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const member_data_name = ['name', 'school', 'image', 'class', 'tel', 'doc', 'email']
@@ -129,10 +127,10 @@ const Submission = (props) => {
             })
             const intersect = _.intersection(member, unfinished)
             if (intersect.length === 0) {
-                checkMembersElm.push(<span><Success /> สมาชิก {i + 1}</span>)
+                checkMembersElm.push(<span><Success /> {t('member')} {i + 1}</span>)
             }
             else {
-                checkMembersElm.push(<span style={{ opacity: 0.7 }}><Warning /> สมาชิก {i + 1}</span>)
+                checkMembersElm.push(<span style={{ opacity: 0.7 }}><Warning /> {t('member')} {i + 1}</span>)
             }
         }
         return checkMembersElm
@@ -169,30 +167,30 @@ const Submission = (props) => {
     }, [])
     return (
         <div className='mb-3'>
-            <ConfirmModal submitApp={submitApp} handleClose={()=>setShowModal(false)} show={showModal} />
-            <h3 className='text-center mb-4'>ยืนยันการสมัคร</h3>
+            <ConfirmModal t={t} submitApp={submitApp} handleClose={()=>setShowModal(false)} show={showModal} />
+            <h3 className='text-center mb-4'>{t('confirm-submission')}</h3>
             <div className='row'>
                 <div className='col-md-4 pb-3'>
                     {checkGenInfo() ?
-                        <SuccessCard name='ข้อมูลทั่วไป' /> :
-                        <WarningCard name='ข้อมูลทั่วไป' />
+                        <SuccessCard t={t} name={t('general-info')} /> :
+                        <WarningCard t={t} name={t('general-info')} />
                     }
                 </div>
                 <div className='col-md-4 text-bold pb-3'>
                     {checkMembers().includes(true) ?
-                        <SuccessCard member name='ข้อมูลสมาชิก'>
+                        <SuccessCard t={t} member name={t('step.member-info')}>
                             {renderCheckMembersElm()}
                         </SuccessCard>
                         :
-                        <WarningCard member name='ข้อมูลสมาชิก'>
+                        <WarningCard t={t} member name={t('step.member-info')}>
                             {renderCheckMembersElm()}
                         </WarningCard>
                     }
                 </div>
                 <div className='col-md-4 pb-3'>
                     {checkContent() ?
-                        <SuccessCard name='ข้อมูลแนวคิด' /> :
-                        <WarningCard name='ข้อมูลแนวคิด' />
+                        <SuccessCard t={t} name={t('pitching-idea')} /> :
+                        <WarningCard t={t} name={t('pitching-idea')} />
                     }
                 </div>
             </div>
@@ -208,13 +206,13 @@ const Submission = (props) => {
                         name='submission_check'
                         value={submissionCheck}
                     />
-                    <label className='custom-control-label' for='confirm_register'>ผู้สมัครได้ตรวจสอบข้อมูลว่าถูกต้องครบถ้วนแล้ว</label>
+                    <label className='custom-control-label' for='confirm_register'>{t('checked-and-verified')}</label>
                 </div>
                 <button onClick={()=>setShowModal(true)} disabled={!submissionCheck} className='mt-3 btn btn-primary' type='button'>
-                    ส่งใบสมัคร
+                    {t('btn-submit-app')}
                 </button>
             </div>
         </div>
     )
 }
-export default Submission
+export default withTranslation('common')(Submission)

@@ -1,8 +1,10 @@
 import React from 'react'
 import { ErrorMessage } from 'formik'
 import FileInput from './fileInput'
+import { withTranslation } from '../i18'
+
 const Content = (props) => {
-    const { handleBlur, handleChange, values, setFieldValue, handleSubmit } = props
+    const { handleBlur, handleChange, t, values, setFieldValue, handleSubmit } = props
     function extractWatchId(url) {
         var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
         var match = url.match(regExp);
@@ -16,12 +18,12 @@ const Content = (props) => {
     return (
         <div className='row'>
             <div className='col-md-3'>
-                <h3>รายละเอียดแนวคิด</h3>
+                <h3>{t('pitching-idea')}</h3>
             </div>
             {(values['register_type'] === 'management' || values['register_type'] === 'innovation') &&
                 <div className='col-md-9'>
                     <FileInput
-                        label='รายงานข้อเสนอ'
+                        label={t('label.pitching-paper')}
                         handleSubmit={handleSubmit}
                         allowedExt={['pdf']}
                         setFieldValue={setFieldValue}
@@ -29,9 +31,9 @@ const Content = (props) => {
                         name={`team_doc`}
                     />
                     <div className='mb-4'>
-                        <label class="form-label">ลิงค์วีดีโอนำเสนอ</label>
+                        <label class="form-label">{t('label.presentation-vdo')}</label>
                         <input
-                            placeholder='ลิงค์วีดีโอนำเสนอ'
+                            placeholder={t('label.presentation-vdo')}
                             className="form-control"
                             type="text"
                             name="video_url"
@@ -39,7 +41,7 @@ const Content = (props) => {
                             onBlur={handleBlur}
                             value={values.video_url}
                         />
-                        <small className='text-muted'><b>อัพโหลดวีดีโอนำเสนอความยาวไม่เกิน 3 นาทีลง YouTube แล้วแนบลิงค์วีดีโอ</b></small>
+                        <small className='text-muted'><b>{t('vdo-helper')}</b></small>
                         <div className='text-danger error'>
                             <ErrorMessage name="video_url" component="span" />
                         </div>
@@ -50,14 +52,14 @@ const Content = (props) => {
                         </div>
                     }
                     {(!extractWatchId(values.video_url) && values.video_url) &&
-                        <p className='text-danger'><b>รูปแบบลิงค์วีดีโอไม่ถูกต้อง</b></p>
+                        <p className='text-danger'><b>{t('warning.youtube-format')}</b></p>
                     }
                 </div>
             }
             {(values['register_type'] === 'poster') &&
                 <div className='col-md-9'>
                     <FileInput
-                        label='โปสเตอร์นำเสนอ'
+                        label={t('label.poster')}
                         handleSubmit={handleSubmit}
                         allowedExt={['pdf']}
                         setFieldValue={setFieldValue}
@@ -71,4 +73,4 @@ const Content = (props) => {
 
     )
 }
-export default Content
+export default withTranslation('common')(Content)

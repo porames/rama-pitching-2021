@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { withTranslation } from '../i18'
 import FileUpload from './fileUpload'
 import firebase from './firebase'
+
 const FileInput = (props) => {
-    const { maxSize, setFieldValue, values, name, label, handleSubmit, allowedExt } = props
+    const { t, maxSize, setFieldValue, values, name, label, handleSubmit, allowedExt } = props
     const [filePreviewLink, setFilePreviewLink] = useState(undefined)
     const [uploadProgress, setUploadProgress] = useState(undefined)
     function docPreviewText(data) {
@@ -10,16 +12,16 @@ const FileInput = (props) => {
             return data.name
         }
         else {
-            return 'กรุณาเลือกไฟล์'
+            return t('please-select-file')
         }
     }
     function displayProgress(progress){
         if(progress){
             if(progress <100){
-                return(`กำลังอัพโหลด (${Math.round(uploadProgress*100)/100}%)`)
+                return(`${t('uploading')} (${Math.round(uploadProgress*100)/100}%)`)
             }
             else{
-                return(<b className='text-success'>อัพโหลดสำเร็จ</b>)
+                return(<b className='text-success'>{t('upload-success')}</b>)
             }
             
         }
@@ -39,12 +41,12 @@ const FileInput = (props) => {
             <label className="form-label">{label} {displayProgress(uploadProgress)}</label>
             <div className="custom-file">
                 <label htmlFor={name} className="custom-file-label">{docPreviewText(values[name])}</label>
-                <FileUpload setUploadProgress={setUploadProgress} maxSize={maxSize} allowedExt={allowedExt} handleSubmit={handleSubmit} name={name} setFieldValue={setFieldValue} />
+                <FileUpload t={t} setUploadProgress={setUploadProgress} maxSize={maxSize} allowedExt={allowedExt} handleSubmit={handleSubmit} name={name} setFieldValue={setFieldValue} />
             </div>
             <a href={filePreviewLink} target="_blank">
-                <small><b>{filePreviewLink ? 'ดูไฟล์ที่เคยอัพโหลดไว้' : ''}</b></small>
+                <small><b>{filePreviewLink ? t('view-upload') : ''}</b></small>
             </a>
         </div>
     )
 }
-export default FileInput
+export default withTranslation('common')(FileInput)

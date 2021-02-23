@@ -1,7 +1,54 @@
 {
-    "title": "Sign Up for The Challenge",
-    "label": {
-      "email-desc": "Team's email for receiving information.",
-      "password": "Password"
-    }
-  }
+  "member": "Member",
+  "general-info": "General Info.",
+  "photo": "Photo",
+  "school-doc": "Verification doc.",
+  "team-member-info": "Team Members Information",
+  "btn-save": "Save",
+  "please-wait": "Loading. Please Wait",
+  "toast-saved": "Saved.",
+  "btn-save-next": "Save and Continue",
+  "pitching-idea": "Pitching Idea",
+  "label": {
+    "pitching-paper": "Paper",
+    "presentation-vdo": "Presentation Video",
+    "poster": "",
+    "team-name": "Team Name",
+    "register-type": "Challenge Type",
+    "name": "Full Name",
+    "email-personal": "Personal Email",
+    "school-name": "School Name",
+    "class-year": "Class Year",
+    "m4": "Mathayom 4 (Grade 10)",
+    "m5": "Mathayom 5 (Grade 11)",
+    "m6": "Mathayom 6 (Grade 12)",
+    "address": "Home Address",
+    "tel": "Telephone Number",
+    "student-doc": "Student's Verification Document",
+    "teacher-info": "Team Advisor"
+  },
+  "vdo-helper": "Upload your presentation to Youtube.com and attach the URL to the video here. The length should be between 2:45-3:15 min.",
+  "warning": {
+    "youtube-format": "YouTube link provided is invalid."
+  },
+  "please-select-file": "Please select a file.",
+  "uploading": "Uploading ...",
+  "upload-success": "Upload success.",
+  "view-upload": "View uploaded file.",
+  "management": "Healthchare Management.",
+  "innovation": "Health Innovation.",
+  "step": {
+    "team-info": "Team Info.",
+    "member-info": "Members Info.",
+    "content-info": "Pitching Info.",
+    "submit-info": "Submit"
+  },
+  "info-completed": "Completed",
+  "info-missing": "Missing",
+  "confirm-submission": "Confirm Submission",
+  "checked-and-verified": "The applicants have reviewed and completetd their information.",
+  "btn-submit-app": "Submit Application",
+  "teacher-info": "Team Advisor",
+  "register-header": "Registration",
+  "logout": "Log Out"
+}

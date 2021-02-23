@@ -1,14 +1,15 @@
 import { ErrorMessage } from 'formik'
+import {withTranslation} from '../i18'
 const Member = (props) => {
-    const { handleBlur, handleChange, values } = props
+    const { handleBlur, handleChange, values, t } = props
     return (
         <div className='row'>
             <div className='col-md-3'>
-                <h3>อาจารย์ประจำทีม</h3>
+                <h3>{t('teacher-info')}</h3>
             </div>
             <div className='col-md-9'>
                 <div className='mb-4'>
-                    <label class="form-label">ชื่อ-สกุล</label>
+                    <label class="form-label">{t('label.name')}</label>
                     <input
                         placeholder='ชื่อ-สกุล'
                         className="form-control"
@@ -24,9 +25,9 @@ const Member = (props) => {
                 </div>
                 <div className='mb-4'>
 
-                    <label class="form-label">โรงเรียน</label>
+                    <label class="form-label">{t('label.school-name')}</label>
                     <input
-                        placeholder='โรงเรียน'
+                        placeholder={t('label.school-name')}
                         className="form-control"
                         type="text"
                         name="teacher_school"
@@ -39,9 +40,9 @@ const Member = (props) => {
                     </div>
                 </div>
                 <div className='mb-4'>
-                    <label class="form-label">เบอร์โทรศัพท์</label>
+                    <label class="form-label">{t('label.tel')}</label>
                     <input
-                        placeholder='เบอร์โทรศัพท์'
+                        placeholder={t('label.tel')}
                         className="form-control"
                         type="text"
                         name="teacher_tel"
@@ -59,4 +60,4 @@ const Member = (props) => {
     )
 }
 
-export default Member
+export default withTranslation('common')(Member)

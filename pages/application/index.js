@@ -2,8 +2,9 @@ import Head from 'next/head'
 import firebase from '../../components/firebase'
 import Router from 'next/router'
 import Application from '../../components/application'
-
-export default function ApplicationPage() {
+import {withTranslation} from '../../i18'
+import LanguageSwitcher from '../../components/languageSwitcher'
+const ApplicationPage = ({t}) => {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
 
@@ -16,10 +17,10 @@ export default function ApplicationPage() {
       <nav className="navbar navbar-light bg-white py-3" style={{ borderBottom: 'solid 1px #e5e7eb' }}>
         <div className='container'>
           <h4 className='mb-0'>
-            ระบบรับสมัคร
+            {t('register-header')}
           </h4>
           <button onClick={async () => await firebase.auth().signOut()} className='btn btn-icon text-muted'>
-            <span className='material-icons'>logout</span> ออกจากระบบ
+            <span className='material-icons'>logout</span> {t('logout')}
           </button>
         </div>
       </nav>
@@ -29,7 +30,10 @@ export default function ApplicationPage() {
       </Head>
       <div className='bg-dark page-wrapper'>
         <Application />
+        <LanguageSwitcher />
       </div>
     </div>
   )
 }
+
+export default withTranslation('common')(ApplicationPage)

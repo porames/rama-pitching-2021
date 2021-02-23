@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Formik, ErrorMessage } from 'formik'
 import firebase from './firebase'
-import { withTranslation, i18n } from '../i18'
-
+import { withTranslation} from '../i18'
+import LanguageSwitcher from './languageSwitcher'
 const Register = (props) => {
   const { t } = props
   return (
@@ -14,24 +14,24 @@ const Register = (props) => {
           validate={values => {
             const errors = {}
             if (!values.email) {
-              errors.email = 'กรุณาระบุ Email'
+              errors.email = t('error.email-null')
             }
             else if (
               !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
             ) {
-              errors.email = 'Email รูปแบบไม่ถูกต้อง'
+              errors.email = t('error.email-format')
             }
             if (!values.password) {
-              errors.password = 'กรุณาตั้งรหัสผ่านความยาวไม่น้อยกว่า 8 ตัวอักษร'
+              errors.password = t('error.password-length')
             }
             else {
               if (values.password.length >= 8) {
                 if (values.password !== values.confirmed_password && values.confirmed_password) {
-                  errors.confirmed_password = 'รหัสผ่านไม่ตรงกัน'
+                  errors.confirmed_password = t('error.password-match')
                 }
               }
               else {
-                errors.password = 'กรุณาตั้งรหัสผ่านความยาวไม่น้อยกว่า 8 ตัวอักษร'
+                errors.password = t('error.password-length')
               }
             }
             return errors
@@ -57,7 +57,7 @@ const Register = (props) => {
           }) => (
             <form className='mt-4' onSubmit={handleSubmit}>
               <div className='mb-4'>
-                <label class="form-label">Email</label>
+                <label className="form-label">Email</label>
                 <input
                   placeholder='Email'
                   className="form-control"
@@ -67,15 +67,15 @@ const Register = (props) => {
                   onBlur={handleBlur}
                   value={values.email}
                 />
-                <small className='text-muted'><b>Email ประจำทีม สำหรับใช้รับข้อมูลการแข่งขัน</b></small>
+                <small className='text-muted'><b>{t('email-helper')}</b></small>
                 <div className='text-danger text-bold'>
                   <ErrorMessage name="email" component="span" />
                 </div>
               </div>
               <div className='mb-4'>
-                <label class="form-label">รหัสผ่าน</label>
+                <label className="form-label">{t('label.password')}</label>
                 <input
-                  placeholder='รหัสผ่าน'
+                  placeholder={t('label.password')}
                   className="form-control"
                   type="password"
                   name="password"
@@ -89,9 +89,9 @@ const Register = (props) => {
               </div>
               <div className='mb-4'>
 
-                <label class="form-label">ยืนยันรหัสผ่าน</label>
+                <label className="form-label">{t('label.confirm-password')}</label>
                 <input
-                  placeholder='ยืนยันรหัสผ่าน'
+                  placeholder={t('label.confirm-password')}
                   className="form-control"
                   type="password"
                   name="confirmed_password"
@@ -106,18 +106,19 @@ const Register = (props) => {
               </div>
               <div className='text-center'>
                 <button className='btn btn-primary w-100' type="submit" disabled={isSubmitting}>
-                  ลงทะเบียน
-            </button>
+                  {t('label.register')}
+                </button>
                 <button onClick={() => props.setMode('login')} className='mt-3 btn btn-link w-100'>
-                  เข้าสู่ระบบเพื่อกรอกข้อมูลต่อ
-            </button>
+                  {t('label.go-login')}
+                </button>
               </div>
             </form>
           )}
         </Formik>
       </div>
-    </div>
+      <LanguageSwitcher/>
+    </div >
   )
 }
 
-export default withTranslation('common')(Register)
+export default withTranslation('register')(Register)

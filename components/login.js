@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Formik, ErrorMessage } from 'formik';
+import React, { useState, useEffect } from 'react'
+import { Formik, ErrorMessage } from 'formik'
 import firebase from './firebase'
 import { withTranslation } from '../i18'
+import LanguageSwitcher from './languageSwitcher'
 const LogIn = (props) => {
   const { t, i18n } = props
   const [isRedirecting, setRedirecting] = useState(false)
@@ -20,11 +21,10 @@ const LogIn = (props) => {
               const user = await firebase.auth().signInWithEmailAndPassword(values.email, values.password)
               if (user) {
                 setRedirecting(true)
-                console.log('logging you in')
               }
             }
             catch (err) {
-              setFieldError('password', 'อีเมลหรือรหัสผ่านไม่ถูกต้อง')
+              setFieldError('password', t('error.password'))
               console.log(err)
             }
           }}
@@ -41,7 +41,7 @@ const LogIn = (props) => {
           }) => (
             <form className='mt-4' onSubmit={handleSubmit}>
               <div className='mb-4'>
-                <label class="form-label">Email</label>
+                <label className="form-label">Email</label>
                 <input
                   placeholder='Email'
                   className="form-control"
@@ -57,9 +57,9 @@ const LogIn = (props) => {
                 </div>
               </div>
               <div className='mb-4'>
-                <label class="form-label">รหัสผ่าน</label>
+                <label className="form-label">{t('label.password')}</label>
                 <input
-                  placeholder='รหัสผ่าน'
+                  placeholder={t('label.password')}
                   className="form-control"
                   type="password"
                   name="password"
@@ -74,18 +74,19 @@ const LogIn = (props) => {
               </div>
               <div className='text-center'>
                 <button className='btn btn-primary w-100' type="submit" disabled={isSubmitting || isRedirecting}>
-                  เข้าสู่ระบบ
-            </button>
+                  {t('label.login')}
+                </button>
                 <button onClick={() => props.setMode('register')} className='mt-3 btn btn-link w-100'>
-                  ยังไม่เคยลงทะเบียน?
-            </button>
+                  {t('label.go-signup')}
+                </button>
               </div>
             </form>
           )}
         </Formik>
       </div>
+      <LanguageSwitcher/>
     </div>
   )
 }
 
-export default withTranslation('common')(LogIn)
+export default withTranslation('login')(LogIn)
