@@ -9,8 +9,8 @@
   "email-helper": "Team's email to receive information about the event.",
   "label": {
     "password": "Password",
-    "confirm-password": "Confrim Password",
+    "confirm-password": "Confirm Password",
     "register": "Register",
-    "go-login": "Already have an account? Go log in."
+    "go-login": "Already have an account? Log in."
   }
 }
