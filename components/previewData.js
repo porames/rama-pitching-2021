@@ -56,7 +56,7 @@ const PreviewData = (props) => {
             <div>
                 <div><b>Email</b> {firebase.auth()?.currentUser?.email}</div>
                 <div><b>{t('label.team-name')}</b> {values['team_name']}</div>
-                <div><b>{t('label.register-type')}</b> {values['register_type']}</div>
+                <div><b>{t('label.register-type')}</b> {values['register_type'] === 'management' ? 'Healthcare Management' : 'Healthcare Innovation'}</div>
                 <br />
                 <h5>{t('label.teacher-info')}</h5>
                 <div><b>{t('label.name')}</b> {values['teacher_name']}</div>

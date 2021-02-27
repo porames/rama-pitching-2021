@@ -46,7 +46,7 @@ const GeneralInfo = (props) => {
                                 <div>
                                     <div className="mt-3 form-check">
                                         <input
-                                            className="form-check-input"
+                                            className="form-check-input custom-radio"
                                             type="radio"
                                             name="register_type"
                                             value='management'
@@ -65,7 +65,7 @@ const GeneralInfo = (props) => {
                                 <img src='/ai.svg' height='100px' />
                                 <div className="mt-3 form-check">
                                     <input
-                                        className="form-check-input"
+                                        className="form-check-input custom-radio"
                                         type="radio"
                                         name="register_type"
                                         value='innovation'

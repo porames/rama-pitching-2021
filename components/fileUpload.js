@@ -1,6 +1,8 @@
 import firebase from './firebase'
 import { toast } from 'react-toastify'
 import React, { useState } from 'react'
+import { withTranslation } from '../i18'
+
 const FileUpload = (props) => {
     const { t, setFieldValue, handleSubmit, allowedExt } = props
 
@@ -16,14 +18,14 @@ const FileUpload = (props) => {
             return
         }
         if (file.size > 1024 * 1024 * (props.maxSize ? props.maxSize : 2)) {
-            toast.error(`กรุณาอัพโหลดไฟล์ที่มีขนาดไม่เกิน ${(props.maxSize ? props.maxSize : 2)} Mb`, {
+            toast.error(`${t('warning.file-type')} ${(props.maxSize ? props.maxSize : 2)} Mb`, {
                 autoClose: 3000
             })
             throw 'file size too large'
         }
         const ext = file.name.split('.').pop().toLowerCase()
         if (!allowedExt.includes(ext)) {
-            toast.error(`กรุณาอัพโหลดไฟล์สกุล ${allowedExt.join(', ').toUpperCase()} เท่านั้น`, {
+            toast.error(`${t('warning.file-size')} ${allowedExt.join(', ').toUpperCase()}`, {
                 autoClose: 3000
             })
             throw 'file type not allowed'
@@ -62,4 +64,4 @@ const FileUpload = (props) => {
     )
 }
 
-export default FileUpload
+export default withTranslation('common')(FileUpload)

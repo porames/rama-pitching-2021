@@ -23,6 +23,7 @@ const Content = (props) => {
             
                 <div className='col-md-9'>
                     <FileInput
+                        maxSize={10}
                         label={t('label.pitching-paper')}
                         handleSubmit={handleSubmit}
                         allowedExt={['pdf']}
