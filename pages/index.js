@@ -8,7 +8,9 @@ export default function Home() {
   const [mode, setMode] = useState('register')
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      return window.location.replace('/application')
+      if (typeof (variable) !== 'undefined') {
+        return window.location.replace('/application')
+      }
     } else {
       console.log('not logged in')
     }

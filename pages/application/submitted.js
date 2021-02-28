@@ -54,7 +54,9 @@ export default function SubmittedPage() {
                         if (doc.exists) {
                             const data = doc.data()
                             if (!data['submission_time']) {
-                                return window.location.replace('/application')
+                                if (typeof (variable) !== 'undefined') {
+                                    return window.location.replace('/application')
+                                }
                             }
                             else {
                                 setData(doc.data())
@@ -68,12 +70,16 @@ export default function SubmittedPage() {
                                 setUnfinished(uf)
                             }
                         }
-                        else{
-                            return window.location.replace('/application')
+                        else {
+                            if (typeof (variable) !== 'undefined') {
+                                return window.location.replace('/application')
+                            }
                         }
                     })
             } else {
-                return window.location.replace('/')
+                if (typeof (variable) !== 'undefined') {
+                    return window.location.replace('/')
+                }
             }
         })
     }, [])

@@ -8,7 +8,10 @@ const ApplicationPage = ({t}) => {
     if (user) {
 
     } else {
-      window.location.replace('/')
+      if(typeof(variable) !== 'undefined'){
+        window.location.replace('/')
+      }
+      
     }
   })
   return (
