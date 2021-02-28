@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import firebase from '../../components/firebase'
-import Router from 'next/router'
 import PreviewData from '../../components/previewData'
 import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
@@ -55,7 +54,7 @@ export default function SubmittedPage() {
                         if (doc.exists) {
                             const data = doc.data()
                             if (!data['submission_time']) {
-                                return Router.push('/application')
+                                return window.location.replace('/application')
                             }
                             else {
                                 setData(doc.data())
@@ -70,11 +69,11 @@ export default function SubmittedPage() {
                             }
                         }
                         else{
-                            Router.push('/application')
+                            return window.location.replace('/application')
                         }
                     })
             } else {
-                Router.push('/')
+                return window.location.replace('/')
             }
         })
     }, [])

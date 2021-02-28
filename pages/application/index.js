@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import firebase from '../../components/firebase'
-import Router from 'next/router'
 import Application from '../../components/application'
 import {withTranslation} from '../../i18'
 
@@ -9,7 +8,7 @@ const ApplicationPage = ({t}) => {
     if (user) {
 
     } else {
-      Router.push('/')
+      window.location.replace('/')
     }
   })
   return (

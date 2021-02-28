@@ -11,7 +11,7 @@ const Member = (props) => {
                 <div className='mb-4'>
                     <label class="form-label">{t('label.name')}</label>
                     <input
-                        placeholder='ชื่อ-สกุล'
+                        placeholder={t('label.name')}
                         className="form-control"
                         type="text"
                         name="teacher_name"

@@ -33,7 +33,7 @@ const MemberButton = (props) => {
             <button type='button' onClick={() => setSelectedMember(number)} className='btn py-4 w-100  elevation-1 my-3 border'>
                 <div className='flex-y-middle'>
                     <div className='avatar mb-3'
-                        style={{ backgroundImage: `url(${imageUrl})` }}
+                        style={{ backgroundImage: `url(${imageUrl ? imageUrl : ''})` }}
                     />
                     <h5>{t('member')} {number}</h5>
                     <div className='text-left'>
