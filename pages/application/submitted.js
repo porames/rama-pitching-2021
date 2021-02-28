@@ -54,7 +54,7 @@ export default function SubmittedPage() {
                         if (doc.exists) {
                             const data = doc.data()
                             if (!data['submission_time']) {
-                                if (typeof (variable) !== 'undefined') {
+                                if (typeof (window) !== 'undefined') {
                                     return window.location.replace('/application')
                                 }
                             }
@@ -71,13 +71,13 @@ export default function SubmittedPage() {
                             }
                         }
                         else {
-                            if (typeof (variable) !== 'undefined') {
+                            if (typeof (window) !== 'undefined') {
                                 return window.location.replace('/application')
                             }
                         }
                     })
             } else {
-                if (typeof (variable) !== 'undefined') {
+                if (typeof (window) !== 'undefined') {
                     return window.location.replace('/')
                 }
             }

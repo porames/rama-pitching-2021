@@ -8,7 +8,7 @@ export default function Home() {
   const [mode, setMode] = useState('register')
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      if (typeof (variable) !== 'undefined') {
+      if (typeof (window) !== 'undefined') {
         return window.location.replace('/application')
       }
     } else {
