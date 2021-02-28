@@ -90,11 +90,6 @@ export default function SubmittedPage() {
                     </button>
                 </div>
             </nav>
-
-            <Head>
-                <title>Rama Pitching Challenge | Application</title>
-            </Head>
-
             <div className='bg-dark page-wrapper'>
                 <div className='container' style={{ maxWidth: 700 }}>
                     <div className='rounded shadow-sm form-box-container bg-white'>

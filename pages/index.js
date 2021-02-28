@@ -15,10 +15,6 @@ export default function Home() {
   })
   return (
     <div className='bg-dark'>
-      <Head>
-        <title>Rama Pitching Challenge | Register</title>
-
-      </Head>
       {mode === 'register' && <Register setMode={setMode} />}
       {mode === 'login' && <LogIn setMode={setMode} />}
 

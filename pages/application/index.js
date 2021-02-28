@@ -24,10 +24,6 @@ const ApplicationPage = ({t}) => {
           </button>
         </div>
       </nav>
-
-      <Head>
-        <title>Rama Pitching Challenge | Application</title>
-      </Head>
       <div className='bg-dark page-wrapper'>
         <Application />        
       </div>
