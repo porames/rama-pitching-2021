@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import "firebase/firestore"
 import "firebase/storage"
 import "firebase/auth"
+import "firebase/analytics"
 const config = {
     apiKey: "AIzaSyBx_RDerZN8eYFSsENRULKW9Q4TczOvPNk",
     authDomain: "rama-pitching-2021.firebaseapp.com",
@@ -13,6 +14,7 @@ const config = {
 if (!firebase.apps.length) {
     try {
         firebase.initializeApp(config)
+        firebase.analytics()
     }
     catch (err) {
         console.log(err)
