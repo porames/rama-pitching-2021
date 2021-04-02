@@ -190,7 +190,7 @@ const Submission = (props) => {
                     />
                     <label className='custom-control-label' for='confirm_register'>{t('checked-and-verified')}</label>
                 </div>
-                <button onClick={() => setShowModal(true)} disabled={true} className='mt-3 btn btn-primary' type='button'>
+                <button onClick={() => setShowModal(true)} disabled={!submissionCheck} className='mt-3 btn btn-primary' type='button'>
                     {t('btn-submit-app')}
                 </button>
             </div>
