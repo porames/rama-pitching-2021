@@ -1,17 +1,17 @@
 import Head from 'next/head'
 import firebase from '../../components/firebase'
 import Application from '../../components/application'
-import {withTranslation} from '../../i18'
+import { withTranslation } from '../../i18'
 
-const ApplicationPage = ({t}) => {
+const ApplicationPage = ({ t }) => {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
 
     } else {
-      if(typeof(window) !== 'undefined'){
+      if (typeof (window) !== 'undefined') {
         window.location.replace('/')
       }
-      
+
     }
   })
   return (
@@ -27,10 +27,24 @@ const ApplicationPage = ({t}) => {
         </div>
       </nav>
       <div className='bg-dark page-wrapper'>
-        <Application />        
+        <Application />
       </div>
     </div>
   )
 }
+export async function getServerSideProps({ res, params }) {
+  res.statusCode = 302
+  var now = new Date().toLocaleString('en-US', {
+    timeZone: 'Asia/Bangkok'
+  })
+  now = new Date(now)
+  const closeAt = new Date('2021-04-30T18:00:00.000Z')
+  if (now > closeAt) {
+    res.setHeader('Location', `/application/closed`)
+  }
+
+  return { props: {} }
+}
+
 
 export default withTranslation('common')(ApplicationPage)

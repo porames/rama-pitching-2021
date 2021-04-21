@@ -3,8 +3,9 @@ import firebase from '../../components/firebase'
 import PreviewData from '../../components/previewData'
 import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
+import { withTranslation } from 'next-i18next'
 
-function SubmittedPage() {
+function ClosedPage({ t }) {
     const [userData, setData] = useState(undefined)
     const [unfinished, setUnfinished] = useState()
     const member_data_name = ['name', 'school', 'image', 'class', 'tel', 'doc', 'email']
@@ -53,28 +54,17 @@ function SubmittedPage() {
                     .then((doc) => {
                         if (doc.exists) {
                             const data = doc.data()
-                            if (!data['submission_time']) {
-                                if (typeof (window) !== 'undefined') {
-                                    return window.location.replace('/application')
+                            setData(doc.data())
+                            var uf = []
+                            for (const i in valueKeys) {
+                                const key = valueKeys[i]
+                                if (!data[key] || data[key] == '') {
+                                    uf.push(key)
                                 }
                             }
-                            else {
-                                setData(doc.data())
-                                var uf = []
-                                for (const i in valueKeys) {
-                                    const key = valueKeys[i]
-                                    if (!data[key] || data[key] == '') {
-                                        uf.push(key)
-                                    }
-                                }
-                                setUnfinished(uf)
-                            }
+                            setUnfinished(uf)
                         }
-                        else {
-                            if (typeof (window) !== 'undefined') {
-                                return window.location.replace('/application')
-                            }
-                        }
+
                     })
             } else {
                 if (typeof (window) !== 'undefined') {
@@ -88,20 +78,24 @@ function SubmittedPage() {
             <nav className="navbar navbar-light bg-white py-3" style={{ borderBottom: 'solid 1px #e5e7eb' }}>
                 <div className='container'>
                     <h4 className='mb-0'>
-                        ระบบรับสมัคร
+                        {t('register-header')}
                     </h4>
                     <button onClick={async () => await firebase.auth().signOut()} className='btn btn-icon text-muted'>
-                        <span className='material-icons'>logout</span> ออกจากระบบ
+                        <span className='material-icons'>logout</span> {t('logout')}
                     </button>
                 </div>
             </nav>
             <div className='bg-dark page-wrapper'>
                 <div className='container' style={{ maxWidth: 700 }}>
                     <div className='rounded shadow-sm form-box-container bg-white'>
-                        <h3 className='text-center'>สมัครสำเร็จ</h3>
+                        <h3 className='text-center'>{t('regis-closed')}</h3>
                         {userData &&
                             <div>
-                                <p className='text-center'>ส่งใบสมัครเมื่อ {userData['submission_time'].toDate().toLocaleString()}</p>
+                                {userData['submission_time'] ?
+                                    <p className='text-center'>{t('submission-time')} {userData['submission_time'].toDate().toLocaleString()}</p>
+                                    :
+                                    <p className='text-center text-danger text-bold'>{t('didnot-submit')}</p>
+                                }
                                 <PreviewData checkMembers={checkMembers()} values={userData} />
                             </div>
                         }
@@ -115,14 +109,18 @@ function SubmittedPage() {
 export async function getServerSideProps({ res, params }) {
     res.statusCode = 302
     var now = new Date().toLocaleString('en-US', {
-      timeZone: 'Asia/Bangkok'
+        timeZone: 'Asia/Bangkok'
     })
     now = new Date(now)
     const closeAt = new Date('2021-04-30T18:00:00.000Z')
-    if (now > closeAt) {
-      res.setHeader('Location', `/application/closed`)
+
+    if (now <= closeAt) {
+        res.setHeader('Location', `/application`)
     }
-  
+    
+
     return { props: {} }
-  }
-  export default SubmittedPage
+}
+
+
+export default withTranslation('common')(ClosedPage)

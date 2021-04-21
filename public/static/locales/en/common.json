@@ -30,8 +30,8 @@
   "vdo-helper": "Upload your presentation to Youtube.com and attach the URL to the video here. The length should be between 2:45-3:15 min.",
   "warning": {
     "youtube-format": "YouTube link provided is invalid.",
-    "file-size": "Please upload the file in",
-    "file-type": "File size should not be larger than"
+    "file-type": "File size should not be larger than",
+    "file-size": "Please upload the file in"
   },
   "please-select-file": "Please select a file.",
   "uploading": "Uploading ...",
@@ -55,5 +55,8 @@
   "btn-submit-app": "Submit Application",
   "teacher-info": "Team Advisor",
   "register-header": "Registration",
-  "logout": "Log Out"
+  "logout": "Log Out",
+  "regis-closed": "The Registration Has Been Closed.",
+  "submission-time": "Submission Time",
+  "didnot-submit": "The applicants didn't submit the application in time. If this is a mistake, please contact us."
 }
