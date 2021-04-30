@@ -2,6 +2,7 @@
 /style/css
 # dependencies
 /node_modules
+/admin
 /.pnp
 .pnp.js
 
