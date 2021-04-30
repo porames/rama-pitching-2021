@@ -118,7 +118,7 @@ export async function getServerSideProps({ res, params }) {
       timeZone: 'Asia/Bangkok'
     })
     now = new Date(now)
-    const closeAt = new Date('2021-05-01T00:30:00+07:00')
+    const closeAt = new Date('2021-05-01T07:30:00+07:00')
     if (now > closeAt) {
       res.setHeader('Location', `/application/closed`)
     }
