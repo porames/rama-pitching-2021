@@ -32,7 +32,7 @@ const Content = (props) => {
                         name={`team_doc`}
                     />
                     <div className='mb-4'>
-                        <label class="form-label">{t('label.presentation-vdo')}</label>
+                        <label className="form-label">{t('label.presentation-vdo')}</label>
                         <input
                             placeholder={t('label.presentation-vdo')}
                             className="form-control"
