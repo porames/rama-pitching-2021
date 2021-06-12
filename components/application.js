@@ -229,7 +229,7 @@ const Register = ({ t }) => {
                 </Formik>
             </div>
             <div className='text-center'>
-            <LanguageSwitcher />
+                <LanguageSwitcher />
             </div>
         </div>
     )
