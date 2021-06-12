@@ -103,20 +103,22 @@ function ClosedPage({ t }) {
                                     :
                                     <p className='text-center text-danger text-bold'>{t('didnot-submit')}</p>
                                 }
-                                <Link href='/application/abstract_booklet'>
-                                    <a>
-                                        {!userData['abstract_submission_time'] &&
-                                            <button className='btn btn-secondary w-100'>
-                                                <span class="material-icons">create</span> Fill Abstract Booklet (Optional)
-                                            </button>
-                                        }
-                                        {userData['abstract_submission_time'] &&
-                                            <button className='btn btn-primary w-100'>
-                                                <span class="material-icons">visibility</span> View Abstract Booklet
-                                            </button>
-                                        }
-                                    </a>
-                                </Link>
+                                {userData['submission_time'] &&
+                                    <Link href='/application/abstract_booklet'>
+                                        <a>
+                                            {!userData['abstract_submission_time'] &&
+                                                <button className='btn btn-secondary w-100'>
+                                                    <span class="material-icons">create</span> Fill Abstract Booklet (Optional)
+                                                </button>
+                                            }
+                                            {userData['abstract_submission_time'] &&
+                                                <button className='btn btn-primary w-100'>
+                                                    <span class="material-icons">visibility</span> View Abstract Booklet
+                                                </button>
+                                            }
+                                        </a>
+                                    </Link>
+                                }
                                 <PreviewData checkMembers={checkMembers()} values={userData} />
                             </div>
 
