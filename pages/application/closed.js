@@ -1,12 +1,16 @@
 import Head from 'next/head'
 import firebase from '../../components/firebase'
 import PreviewData from '../../components/previewData'
+
 import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
 import { withTranslation } from 'next-i18next'
+import LanguageSwitcher from '../../components/languageSwitcher'
+import Link from 'next/link'
 
 function ClosedPage({ t }) {
     const [userData, setData] = useState(undefined)
+    const [abstractFilled, setAbstractFilled] = useState(false)
     const [unfinished, setUnfinished] = useState()
     const member_data_name = ['name', 'school', 'image', 'class', 'tel', 'doc', 'email']
     var members_data = []
@@ -62,6 +66,9 @@ function ClosedPage({ t }) {
                                     uf.push(key)
                                 }
                             }
+                            if (data['abstract_submission_time']) {
+                                setAbstractFilled(true)
+                            }
                             setUnfinished(uf)
                         }
 
@@ -86,22 +93,50 @@ function ClosedPage({ t }) {
                 </div>
             </nav>
             <div className='bg-dark page-wrapper'>
-                <div className='container' style={{ maxWidth: 700 }}>
-                    <div className='rounded shadow-sm form-box-container bg-white'>
-                        <h3 className='text-center'>{t('regis-closed')}</h3>
-                        {userData &&
+                {userData &&
+                    <div className='container' style={{ maxWidth: 700 }}>
+                        <div className='rounded shadow-sm form-box-container bg-white'>
+                            <h3 className='text-center'>{t('regis-closed')}</h3>
                             <div>
                                 {userData['submission_time'] ?
                                     <p className='text-center'>{t('submission-time')} {userData['submission_time'].toDate().toLocaleString()}</p>
                                     :
                                     <p className='text-center text-danger text-bold'>{t('didnot-submit')}</p>
                                 }
+                                <Link href='/application/abstract_booklet'>
+                                    <a>
+                                        {!userData['abstract_submission_time'] &&
+                                            <button className='btn btn-secondary w-100'>
+                                                <span class="material-icons">create</span> Fill Abstract Booklet (Optional)
+                                            </button>
+                                        }
+                                        {userData['abstract_submission_time'] &&
+                                            <button className='btn btn-primary w-100'>
+                                                <span class="material-icons">visibility</span> View Abstract Booklet
+                                            </button>
+                                        }
+                                    </a>
+                                </Link>
                                 <PreviewData checkMembers={checkMembers()} values={userData} />
                             </div>
-                        }
+
+                        </div>
+                        <LanguageSwitcher />
                     </div>
-                </div>
+                }
+                {!userData &&
+                    <div className='container' style={{ maxWidth: 700 }}>
+                        <div className='rounded shadow-sm form-box-container bg-white'>
+                            <div className='d-flex justify-content-center align-items-center'>
+                                <div className="spinner-border text-primary" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
+
         </div>
     )
 }
@@ -117,7 +152,7 @@ export async function getServerSideProps({ res, params }) {
     if (now <= closeAt) {
         res.setHeader('Location', `/application`)
     }
-    
+
 
     return { props: {} }
 }
