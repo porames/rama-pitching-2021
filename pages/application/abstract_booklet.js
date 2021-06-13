@@ -132,7 +132,7 @@ const AbstractForm = ({ props, t }) => {
             <div className='bg-dark page-wrapper'>
                 <div className='container' style={{ maxWidth: 700 }}>
                     <div className='rounded shadow-sm form-box-container bg-white'>
-                        <h3 className='text-center'>Abstract Booklet</h3>
+                        <h3 className='text-center'>Proposal Booklet</h3>
                         {submissionTime &&
                             <p className='text-center'>Submitted successfully at {submissionTime.toDate().toLocaleString()}</p>
                         }
@@ -224,9 +224,9 @@ const AbstractForm = ({ props, t }) => {
                                             wordsState={wordsState}
                                             description={
                                                 regisType === 'innovation' ?
-                                                    'Write down the background of the problem you are exploring, the importance of this problem needingly to be solved, and the needs of stakeholders.'
+                                                    'Write down the background of the problem you are exploring, the importance of this problem needily to be solved, and the needs of stakeholders.'
                                                     :
-                                                    'Write down the background of the problem you are exploring, the importance of this problem needingly to be solved, the needs of stakeholders, and include your problem statement if possible.'
+                                                    'Write down the background of the problem you are exploring, the importance of this problem needily to be solved, the needs of stakeholders, and include your problem statement if possible.'
                                             }
                                         />
                                         <TextArea
@@ -243,7 +243,7 @@ const AbstractForm = ({ props, t }) => {
                                                 regisType === 'innovation' ?
                                                     'What is your product that serves and solves the problem? How will the product help solve your problem?'
                                                     :
-                                                    'The set of solutions that you are proposing to solve the problems (be concise by describing not too in detail)'
+                                                    'Write down the set of solutions that you are proposing to solve the problems (be as concise as possible without describing too much in detail)'
                                             }
                                         />
                                         <TextArea
@@ -253,9 +253,9 @@ const AbstractForm = ({ props, t }) => {
                                             wordsState={wordsState}
                                             description={
                                                 regisType === 'innovation' ?
-                                                    'What are your conclusions? Describe the innovation’s importance. How will you suggest using your innovation in order to tackle the problem? (It should be based on logical reasons and limitations are taken into account).'
+                                                    'What are your conclusions? Describe the innovation’s importance. How will you suggest using your innovation in order to tackle the problem? (it should be based on logical reasons and limitations should be taken into account)'
                                                     :
-                                                    'How will you suggest using your recommendations in order to tackle the problem? (Limitations are taken into account).'
+                                                    'How will you suggest using your recommendations in order to tackle the problem?  (limitations should be taken into account)'
                                             }
                                         />
                                         {editPermission &&
