@@ -29,13 +29,17 @@ const TextArea = (props) => (
 )
 
 const AbstractForm = ({ props, t }) => {
-    const [savedData, setSavedData] = useState('loading')
+    const [savedAbstracts, setSavedAbstracts] = useState('loading')
+    const [savedKeywords, setSavedKeywords] = useState('loading')
+    const [savedContactEmail, setSavedContactEmail] = useState('loading')
     const [submissionTime, setSubmissionTime] = useState(undefined)
     const [editPermission, setEditPermission] = useState(false)
     const [regisType, setRegisType] = useState(undefined)
     const [isSaving, setIsSaving] = useState(false)
     const [showModal, setShowModal] = useState(false)
+    const [keywordsCount, setKeywordsCount] = useState(0)
     const [wordsState, setWordsState] = useState({})
+    const [completed, setCompleted] = useState(false)
 
     function initWordsState(values) {
         var wordCounts = {}
@@ -57,16 +61,29 @@ const AbstractForm = ({ props, t }) => {
                             setRegisType(data['register_type'])
                             if (data['abstract_fields']) {
                                 if (data['abstract_fields'].length !== 3) {
-                                    setSavedData(['', '', ''])
+                                    setSavedAbstracts(['', '', ''])
                                 }
                                 else {
-                                    setSavedData(data['abstract_fields'])
+                                    setSavedAbstracts(data['abstract_fields'])
                                     initWordsState(data['abstract_fields'])
                                 }
                             }
                             else {
-                                setSavedData(['', '', ''])
-
+                                setSavedAbstracts(['', '', ''])
+                            }
+                            if (data['keywords']) {
+                                setSavedKeywords(data['keywords'])
+                                setKeywordsCount(data['keywords'].split(',').length)
+                            }
+                            else {
+                                setSavedKeywords('')
+                            }
+                            if (data['contact_email'] || data['contact_email'] == '') {
+                                setSavedContactEmail(data['contact_email'])
+                            }
+                            else {
+                                const userEmail = firebase.auth().currentUser.email
+                                setSavedContactEmail(userEmail)
                             }
                             if (!data['abstract_submission_time']) {
                                 setEditPermission(true)
@@ -83,17 +100,27 @@ const AbstractForm = ({ props, t }) => {
                 }
             }
         })
-        console.log(savedData)
     }, [])
 
-
-
+    function checkCompleted(values) {
+        if (
+            values['keywords'].trim() !== '' &&
+            values['contact_email'].trim() !== '' &&
+            values['abstract_0'].trim() !== '' &&
+            values['abstract_1'].trim() !== '' &&
+            values['abstract_2'].trim() !== ''
+        ) {
+            return setCompleted(true)
+        }
+        else {
+            return setCompleted(false)
+        }
+    }
     async function save(values) {
         setIsSaving(true)
         try {
             const db = firebase.firestore()
             const uid = firebase.auth().currentUser.uid
-            console.log(uid)
             await db.collection('rama-pitching').doc('register').collection('teams')
                 .doc(uid)
                 .set({
@@ -101,7 +128,9 @@ const AbstractForm = ({ props, t }) => {
                         values['abstract_0'],
                         values['abstract_1'],
                         values['abstract_2']
-                    ]
+                    ],
+                    contact_email: values['contact_email'],
+                    keywords: values['keywords']
                 }, { merge: true })
             toast(<span className='text-dark'><span className='material-icons'>save</span> Saved</span>)
         }
@@ -142,22 +171,26 @@ const AbstractForm = ({ props, t }) => {
                             autoClose={2500}
                             hideProgressBar={true}
                         />
-                        {savedData === 'loading' &&
+                        {savedAbstracts === 'loading' &&
                             <div className='d-flex justify-content-center align-items-center mt-4'>
                                 <div className="spinner-border text-primary" role="status">
                                     <span className="sr-only">Loading...</span>
                                 </div>
                             </div>
                         }
-                        {savedData !== 'loading' &&
-
+                        {(savedAbstracts !== 'loading' && savedContactEmail !== 'loading' && savedKeywords !== 'loading') &&
                             <Formik
+                                validateOnMount={true}
                                 initialValues={{
-                                    abstract_0: savedData[0],
-                                    abstract_1: savedData[1],
-                                    abstract_2: savedData[2]
+                                    contact_email: savedContactEmail,
+                                    keywords: savedKeywords,
+                                    abstract_0: savedAbstracts[0],
+                                    abstract_1: savedAbstracts[1],
+                                    abstract_2: savedAbstracts[2],
+
                                 }}
                                 validate={values => {
+                                    checkCompleted(values)
                                     var errors = {}
                                     var wordCounts = {}
                                     Object.keys(values).map((key, index) => {
@@ -169,6 +202,16 @@ const AbstractForm = ({ props, t }) => {
                                             }
                                         }
                                     })
+                                    if (values['keywords'].trim() !== '') {
+                                        const count = values['keywords'].split(',').length
+                                        setKeywordsCount(count)
+                                        if (count > 5) {
+                                            errors['keywords'] = true
+                                        }
+                                    }
+                                    else {
+                                        setKeywordsCount(0)
+                                    }
                                     setWordsState(wordCounts)
                                     return errors
                                 }}
@@ -176,7 +219,6 @@ const AbstractForm = ({ props, t }) => {
                                     try {
                                         const db = firebase.firestore()
                                         const uid = firebase.auth().currentUser.uid
-                                        console.log(uid)
                                         await db.collection('rama-pitching').doc('register').collection('teams')
                                             .doc(uid)
                                             .set({
@@ -185,6 +227,8 @@ const AbstractForm = ({ props, t }) => {
                                                     values['abstract_1'],
                                                     values['abstract_2']
                                                 ],
+                                                contact_email: values['contact_email'],
+                                                keywords: values['keywords'],
                                                 abstract_submission_time: firebase.firestore.FieldValue.serverTimestamp()
                                             }, { merge: true })
                                         return Router.push('/application/submitted')
@@ -216,7 +260,31 @@ const AbstractForm = ({ props, t }) => {
                                                 }} type='submit' className='btn-primary btn'>Confirm</button>
                                             </Modal.Footer>
                                         </Modal>
-
+                                        <div className='mb-4'>
+                                            <label className='form-label'>
+                                                <b>Keywords (Maximum: 5)</b><br />
+                                                <small>Words or phrases which capture the most important aspects of your project. (separate each keyword with a comma).</small>
+                                            </label>
+                                            <Field
+                                                disabled={!editPermission}
+                                                className={`form-control ${keywordsCount > 5 && 'is-invalid'}`}
+                                                name='keywords'
+                                                placeholder='Keywords'
+                                            />
+                                            <small className={keywordsCount > 5 && 'text-danger'}>{keywordsCount}/5 Keywords</small>
+                                        </div>
+                                        <div className='mb-4'>
+                                            <label className='form-label'>
+                                                <b>Contact Email</b><br />
+                                                <small>In case the given contact email needs to be changed.</small>
+                                            </label>
+                                            <Field
+                                                disabled={!editPermission}
+                                                className='form-control'
+                                                name='contact_email'
+                                                placeholder='Contact Email'
+                                            />
+                                        </div>
                                         <TextArea
                                             disabled={!editPermission}
                                             name='abstract_0'
@@ -263,7 +331,7 @@ const AbstractForm = ({ props, t }) => {
                                                 <button type='button' disabled={isSaving || !_.isEmpty(errors)} onClick={async () => await save(values)} className='btn btn-light text-primary'>
                                                     Save
                                                 </button>
-                                                <button type='button' disabled={!_.isEmpty(errors)} onClick={() => setShowModal(true)} className='btn btn-primary'>
+                                                <button type='button' disabled={!_.isEmpty(errors) || !completed} onClick={() => setShowModal(true)} className='btn btn-primary'>
                                                     Submit and Turn in
                                                 </button>
                                             </div>
