@@ -162,8 +162,9 @@ const AbstractForm = ({ props, t }) => {
                 <div className='container' style={{ maxWidth: 700 }}>
                     <div className='rounded shadow-sm form-box-container bg-white'>
                         <h3 className='text-center'>Proposal Booklet</h3>
-                        {submissionTime &&
-                            <p className='text-center'>Submitted successfully at {submissionTime.toDate().toLocaleString()}</p>
+                        {submissionTime
+                            ? <p className='text-center'>Submitted successfully at {submissionTime.toDate().toLocaleString()}</p>
+                            : <p className='text-center'>Please provide all descriptions in English.</p>
                         }
                         <ToastContainer
                             position='bottom-left'
@@ -260,31 +261,6 @@ const AbstractForm = ({ props, t }) => {
                                                 }} type='submit' className='btn-primary btn'>Confirm</button>
                                             </Modal.Footer>
                                         </Modal>
-                                        <div className='mb-4'>
-                                            <label className='form-label'>
-                                                <b>Keywords (Maximum: 5)</b><br />
-                                                <small>Words or phrases which capture the most important aspects of your project. (separate each keyword with a comma).</small>
-                                            </label>
-                                            <Field
-                                                disabled={!editPermission}
-                                                className={`form-control ${keywordsCount > 5 && 'is-invalid'}`}
-                                                name='keywords'
-                                                placeholder='Keywords'
-                                            />
-                                            <small className={keywordsCount > 5 && 'text-danger'}>{keywordsCount}/5 Keywords</small>
-                                        </div>
-                                        <div className='mb-4'>
-                                            <label className='form-label'>
-                                                <b>Contact Email</b><br />
-                                                <small>In case the given contact email needs to be changed.</small>
-                                            </label>
-                                            <Field
-                                                disabled={!editPermission}
-                                                className='form-control'
-                                                name='contact_email'
-                                                placeholder='Contact Email'
-                                            />
-                                        </div>
                                         <TextArea
                                             disabled={!editPermission}
                                             name='abstract_0'
@@ -326,6 +302,31 @@ const AbstractForm = ({ props, t }) => {
                                                     'How will you suggest using your recommendations in order to tackle the problem?  (limitations should be taken into account)'
                                             }
                                         />
+                                        <div className='mb-4'>
+                                            <label className='form-label'>
+                                                <b>Keywords (Maximum: 5)</b><br />
+                                                <small>Words or phrases which capture the most important aspects of your project. (separate each keyword with a comma).</small>
+                                            </label>
+                                            <Field
+                                                disabled={!editPermission}
+                                                className={`form-control ${keywordsCount > 5 && 'is-invalid'}`}
+                                                name='keywords'
+                                                placeholder='Keywords'
+                                            />
+                                            <small className={keywordsCount > 5 && 'text-danger'}>{keywordsCount}/5 Keywords</small>
+                                        </div>
+                                        <div className='mb-4'>
+                                            <label className='form-label'>
+                                                <b>Contact Email</b><br />
+                                                <small>In case the given contact email needs to be changed.</small>
+                                            </label>
+                                            <Field
+                                                disabled={!editPermission}
+                                                className='form-control'
+                                                name='contact_email'
+                                                placeholder='Contact Email'
+                                            />
+                                        </div>
                                         {editPermission &&
                                             <div className='d-flex justify-content-between'>
                                                 <button type='button' disabled={isSaving || !_.isEmpty(errors)} onClick={async () => await save(values)} className='btn btn-light text-primary'>
