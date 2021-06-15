@@ -164,7 +164,7 @@ const AbstractForm = ({ props, t }) => {
                         <h3 className='text-center'>Proposal Booklet</h3>
                         {submissionTime
                             ? <p className='text-center'>Submitted successfully at {submissionTime.toDate().toLocaleString()}</p>
-                            : <p className='text-center'>Please provide all descriptions in English.</p>
+                            : <p className='text-center text-danger'>Please provide all descriptions in English.</p>
                         }
                         <ToastContainer
                             position='bottom-left'
