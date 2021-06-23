@@ -58,5 +58,8 @@
   "logout": "Log Out",
   "regis-closed": "The Registration Has Been Closed.",
   "submission-time": "Submission Time",
-  "didnot-submit": "The applicants didn't submit the application in time. If this is a mistake, please contact us."
+  "didnot-submit": "The applicants didn't submit the application in time. If this is a mistake, please contact us.",
+  "congrats-header": "Thank you for participating in Ramathibodi Pitching Challenge 2021",
+  "cert-description": "All participants in the team can download their certificates by using the button below.",
+  "download-cert": "Download Certificate"
 }
