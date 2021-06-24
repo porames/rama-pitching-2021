@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { withTranslation } from '../../i18'
 import LanguageSwitcher from '../../components/languageSwitcher'
 import Link from 'next/link'
-
+import _ from 'lodash'
 
 const Avatar = (props) => {
     const [imgUrl, setImgUrl] = useState(undefined)
@@ -32,6 +32,9 @@ function CongratsPage({ t, props }) {
                     .then((doc) => {
                         if (doc.exists) {
                             const data = doc.data()
+                            if(_.isUndefined(data.certificates) && typeof (window) !== 'undefined'){
+                                return window.location.replace('/application/closed')                                
+                            }
                             setData(data)
                             console.log(data)
                         }

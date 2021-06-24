@@ -59,7 +59,7 @@ function ClosedPage({ t }) {
                         if (doc.exists) {
                             const data = doc.data()
                             setData(doc.data())
-                            var uf = []
+                            var uf = []                            
                             for (const i in valueKeys) {
                                 const key = valueKeys[i]
                                 if (!data[key] || data[key] == '') {
