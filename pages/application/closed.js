@@ -108,12 +108,12 @@ function ClosedPage({ t }) {
                                         <a>
                                             {!userData['abstract_submission_time'] &&
                                                 <button className='btn btn-secondary w-100'>
-                                                    <span class="material-icons">create</span> Fill Abstract Booklet (Optional)
+                                                    <span class="material-icons">create</span> Fill Proposal Booklet (Optional)
                                                 </button>
                                             }
                                             {userData['abstract_submission_time'] &&
                                                 <button className='btn btn-primary w-100'>
-                                                    <span class="material-icons">visibility</span> View Abstract Booklet
+                                                    <span class="material-icons">visibility</span> View Proposal Booklet
                                                 </button>
                                             }
                                         </a>
