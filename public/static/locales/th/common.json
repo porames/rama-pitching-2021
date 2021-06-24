@@ -58,5 +58,9 @@
   "logout": "ออกจากระบบ",
   "regis-closed": "ปิดการรับสมัครแล้ว",
   "submission-time": "เวลาที่ส่งใบสมัคร",
-  "didnot-submit": "ผู้สมัครไม่ได้ส่งใบสมัครภายในเวลาที่กำหนด หากผิดพลากกรุณาติดต่อฝ่ายช่วยเหลือ"
+  "didnot-submit": "ผู้สมัครไม่ได้ส่งใบสมัครภายในเวลาที่กำหนด หากผิดพลากกรุณาติดต่อฝ่ายช่วยเหลือ",
+  "download-certificates": "",
+  "congrats-header": "Thank you for joining us in exploring the world beyond medical boundaries.",
+  "cert-description": "สมาชิกสามารถดาวน์โหลดเกียรติบัตรของตัวเองได้โดยใช้ปุ่มด้านล่าง",
+  "download-cert": "ดาวน์โหลดเกียรติบัตร"
 }

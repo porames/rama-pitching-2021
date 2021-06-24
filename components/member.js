@@ -29,7 +29,6 @@ const Member = (props) => {
     const { t, handleBlur, handleChange, values, setFieldValue, number, handleSubmit } = props
     return (
         <div className='row'>
-
             <div className='col-12'>
                 <ImageUploader handleSubmit={handleSubmit} values={values} setFieldValue={setFieldValue} name={`member_${number}_image`} />
             </div>
