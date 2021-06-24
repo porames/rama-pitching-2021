@@ -2,7 +2,7 @@ import firebase from '../../components/firebase'
 import React, { useEffect, useState } from 'react'
 import { withTranslation } from '../../i18'
 import LanguageSwitcher from '../../components/languageSwitcher'
-import Head from 'next/head'
+import Link from 'next/link'
 
 
 const Avatar = (props) => {
@@ -68,13 +68,15 @@ function CongratsPage({ t, props }) {
                 <div className='container'>
                     {data &&
                         <div className='rounded shadow-sm form-box-container bg-white'>
-                            <h2 className='text-center'>{t('congrats-header')}</h2>
-                            <p className='text-center'>- Ramathibodi Pitching Challenge 2021 -</p>
+                            <h2 className='text-center'>{t('download-cert')}</h2>
+                            <h6 className='text-center'>
+                                {t('congrats-header')}<br/>
+                                - Ramathibodi Pitching Challenge 2021 -
+                            </h6>                        
                             <p className='text-center'>{t('cert-description')}</p>
-                            <div className='mt-4 d-flex justify-content-center'>
+                            <div className='my-4 d-flex justify-content-center flex-column flex-md-row'>
                                 {data.certificates.map((cert, index) => {
                                     return (
-
                                         <div key={index} className='d-flex p-3 flex-column align-items-center'>
                                             <Avatar path={data?.[`member_${index + 1}_image`]} />
                                             <div><b>{data?.[`member_${index + 1}_name`]}</b></div>
@@ -85,13 +87,18 @@ function CongratsPage({ t, props }) {
                                                 {t('download-cert')}
                                             </button>
                                         </div>
-
                                     )
                                 })}
                             </div>
+                            <div className='d-flex justify-content-center'>
+                            <Link href='/application/abstract_booklet'>
+                                <button className='btn btn-secondary'>
+                                    <span class="material-icons">create</span> Fill Abstract Booklet (Optional)
+                                </button>
+                            </Link>
+                            </div>
                         </div>
                     }
-
                     <LanguageSwitcher />
                 </div>
             </div>
