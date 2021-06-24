@@ -4,6 +4,7 @@ import { withTranslation } from '../../i18'
 import LanguageSwitcher from '../../components/languageSwitcher'
 import Head from 'next/head'
 
+
 const Avatar = (props) => {
     const [imgUrl, setImgUrl] = useState(undefined)
     useEffect(() => {
@@ -11,7 +12,6 @@ const Avatar = (props) => {
         storage.ref(props.path).getDownloadURL()
             .then((url) => {
                 setImgUrl(url)
-                console.log(imgUrl)
             })
 
     }, [imgUrl])
@@ -45,12 +45,12 @@ function CongratsPage({ t, props }) {
         })
     }, [])
     async function downloadCert(path) {
+        var windowReference = window.open();
         var storage = firebase.storage();
         const url = await storage.ref(path).getDownloadURL()
         if (typeof (window) !== 'undefined') {
-            window.open(url, '_blank').focus()
+            windowReference.location = url;
         }
-        return url
     }
     return (
         <div>
@@ -69,26 +69,30 @@ function CongratsPage({ t, props }) {
                     {data &&
                         <div className='rounded shadow-sm form-box-container bg-white'>
                             <h2 className='text-center'>{t('congrats-header')}</h2>
+                            <p className='text-center'>- Ramathibodi Pitching Challenge 2021 -</p>
                             <p className='text-center'>{t('cert-description')}</p>
-                            <div className='mt-4'>
-                            {data.certificates.map((cert, index) => {
-                                return (
-                                    <div key={index} className='d-flex flex-column align-items-center'>
-                                        <Avatar path={data[`member_${index + 1}_image`]} />
-                                        <div>{data[`member_${index + 1}_name`]}</div>
-                                        <button className='btn btn-primary mt-2' onClick={() => downloadCert(cert)}>
-                                            <span className='material-icons mr-2'>
-                                                file_download
-                                            </span>
-                                            {t('download-cert')}
-                                        </button>
-                                    </div>
-                                )
-                            })}
+                            <div className='mt-4 d-flex justify-content-center'>
+                                {data.certificates.map((cert, index) => {
+                                    return (
+
+                                        <div key={index} className='d-flex p-3 flex-column align-items-center'>
+                                            <Avatar path={data?.[`member_${index + 1}_image`]} />
+                                            <div><b>{data?.[`member_${index + 1}_name`]}</b></div>
+                                            <button className='btn btn-primary mt-2' onClick={() => downloadCert(cert)}>
+                                                <span className='material-icons mr-2'>
+                                                    file_download
+                                                </span>
+                                                {t('download-cert')}
+                                            </button>
+                                        </div>
+
+                                    )
+                                })}
                             </div>
                         </div>
                     }
-                    <LanguageSwitcher/>
+
+                    <LanguageSwitcher />
                 </div>
             </div>
 

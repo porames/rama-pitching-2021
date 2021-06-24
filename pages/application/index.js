@@ -2,7 +2,7 @@ import Head from 'next/head'
 import firebase from '../../components/firebase'
 import Application from '../../components/application'
 import { withTranslation } from '../../i18'
-
+import LanguageSwitcher from '../../components/languageSwitcher'
 const ApplicationPage = ({ t }) => {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
