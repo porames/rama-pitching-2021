@@ -32,8 +32,8 @@ function CongratsPage({ t, props }) {
                     .then((doc) => {
                         if (doc.exists) {
                             const data = doc.data()
-                            if(_.isUndefined(data.certificates) && typeof (window) !== 'undefined'){
-                                return window.location.replace('/application/closed')                                
+                            if (_.isUndefined(data.certificates) && typeof (window) !== 'undefined') {
+                                return window.location.replace('/application/closed')
                             }
                             setData(data)
                             console.log(data)
@@ -73,9 +73,9 @@ function CongratsPage({ t, props }) {
                         <div className='rounded shadow-sm form-box-container bg-white'>
                             <h2 className='text-center'>{t('download-cert')}</h2>
                             <h6 className='text-center'>
-                                {t('congrats-header')}<br/>
+                                {t('congrats-header')}<br />
                                 - Ramathibodi Pitching Challenge 2021 -
-                            </h6>                        
+                            </h6>
                             <p className='text-center'>{t('cert-description')}</p>
                             <div className='my-4 d-flex justify-content-center flex-column flex-md-row'>
                                 {data.certificates.map((cert, index) => {
@@ -92,13 +92,6 @@ function CongratsPage({ t, props }) {
                                         </div>
                                     )
                                 })}
-                            </div>
-                            <div className='d-flex justify-content-center'>
-                            <Link href='/application/abstract_booklet'>
-                                <button className='btn btn-secondary'>
-                                    <span class="material-icons">create</span> Fill Abstract Booklet (Optional)
-                                </button>
-                            </Link>
                             </div>
                         </div>
                     }

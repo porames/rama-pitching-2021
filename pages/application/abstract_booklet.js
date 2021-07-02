@@ -350,4 +350,10 @@ const AbstractForm = ({ props, t }) => {
     )
 }
 
+export async function getServerSideProps({ res, params }) {
+    res.statusCode = 302
+    res.setHeader('Location', `/application`)
+    return { props: {} }
+}
+
 export default withTranslation('common')(AbstractForm)
